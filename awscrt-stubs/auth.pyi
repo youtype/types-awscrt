@@ -91,7 +91,7 @@ class AwsSigningConfig(NativeResource):
         use_double_uri_encode: bool = ...,
         should_normalize_uri_path: bool = ...,
         signed_body_value: Optional[str] = ...,
-        signed_body_header_type=...,
+        signed_body_header_type: AwsSignedBodyHeaderType = ...,
         expiration_in_seconds: Optional[int] = ...,
         omit_session_token: bool = ...,
     ) -> None: ...

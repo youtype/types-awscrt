@@ -1,5 +1,7 @@
 from awscrt import NativeResource as NativeResource
-from awscrt.io import ClientBootstrap as ClientBootstrap, DefaultHostResolver as DefaultHostResolver, EventLoopGroup as EventLoopGroup
+from awscrt.io import ClientBootstrap as ClientBootstrap
+from awscrt.io import DefaultHostResolver as DefaultHostResolver
+from awscrt.io import EventLoopGroup as EventLoopGroup
 
 def native_memory_usage() -> int: ...
 def dump_native_memory() -> None: ...

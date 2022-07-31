@@ -1,0 +1,92 @@
+[tool.black]
+line-length = 100
+include = '(awscrt-stubs)/.*\.pyi?$'
+target-version = [
+    'py37',
+    'py38',
+    'py39',
+    'py310',
+]
+preview = true
+
+[tool.isort]
+profile = "black"
+line_length = 100
+src_paths = []
+
+[tool.poetry]
+name = "types-awscrt"
+version = "0.13.14"
+description = "Type annotations and code completion for awscrt"
+authors = ["Vlad Emelianov <vlad.emelianov.nz@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://youtype.github.io/mypy_boto3_builder/"
+repository = "https://github.com/youtype/types-awscrt"
+documentation = "https://youtype.github.io/mypy_boto3_builder/"
+keywords = ["awscrt", "type-annotations", "pyright", "mypy", "boto3"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Typing :: Stubs Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+packages = [
+    { include = "awscrt-stubs" },
+]
+include = [
+    "LICENSE",
+    "awscrt-stubs/py.typed",
+    "awscrt-stubs/*.pyi",
+    "awscrt-stubs/*/*.pyi",
+]
+
+[tool.poetry.urls]
+"Documentation" = "https://youtype.github.io/mypy_boto3_builder/"
+"Source" = "https://github.com/youtype/types-awscrt"
+"Bug Tracker" = "https://github.com/youtype/types-awscrt/issues"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+awscrt = "*"
+isort = "*"
+black = "*"
+mypy = "*"
+flake8 = "*"
+twine = "*"
+pyyaml = "*"
+istub = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+include = [
+    "awscrt-stubs",
+]
+exclude = [
+    "**/__pycache__",
+    "tests",
+    "typestubs",
+]
+reportMissingImports = "error"
+reportMissingTypeStubs = false
+reportMissingTypeArgument = "error"
+reportIncompatibleMethodOverride = "error"
+reportIncompatibleVariableOverride = "error"
+reportUnknownParameterType = "error"
+pythonVersion = "3.7"

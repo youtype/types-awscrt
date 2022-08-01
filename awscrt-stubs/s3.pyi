@@ -3,7 +3,6 @@ from enum import IntEnum
 from threading import Event
 from typing import Callable, List, Optional, Tuple
 
-from _typeshed import Incomplete
 from awscrt import NativeResource as NativeResource
 from awscrt.auth import AwsCredentialsProvider as AwsCredentialsProvider
 from awscrt.http import HttpRequest as HttpRequest

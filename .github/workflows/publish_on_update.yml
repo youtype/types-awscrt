@@ -70,7 +70,7 @@ jobs:
           git config --global user.email "github-actions"
           git config --global user.name "github-actions@github.com"
           git add pyproject.toml
-          git commit -m "Release ${VERSION}"
+          git commit -m "Release ${VERSION}" || true
           git push || true
       - name: Publish to PyPI
         env:

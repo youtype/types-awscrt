@@ -1,7 +1,7 @@
 # types-awscrt
 
-[![PyPI - types-awscrt](https://img.shields.io/pypi/v/types-awscrt.svg?color=blue)](https://pypi.org/project/types-awscrt)
-[![PyPI - awscrt](https://img.shields.io/pypi/v/awscrt.svg?color=blue)](https://pypi.org/project/awscrt)
+[![PyPI - types-awscrt](https://img.shields.io/pypi/v/types-awscrt.svg?color=blue&label=types-awscrt)](https://pypi.org/project/types-awscrt)
+[![PyPI - awscrt](https://img.shields.io/pypi/v/awscrt.svg?color=blue&label=awscrt)](https://pypi.org/project/awscrt)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/types-awscrt.svg?color=blue)](https://pypi.org/project/types-awscrt)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/types-awscrt?color=blue)](https://pypistats.org/packages/types-awscrt)
 

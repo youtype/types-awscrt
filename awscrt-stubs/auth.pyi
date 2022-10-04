@@ -1,11 +1,13 @@
 from concurrent.futures import Future
 from datetime import datetime
 from enum import IntEnum
-from typing import Any, Callable, List, Optional, Type, TypeVar
+from typing import Any, Callable, List, Optional, Sequence, Tuple, Type, TypeVar
 
 from awscrt import NativeResource as NativeResource
+from awscrt.http import HttpProxyOptions
 from awscrt.http import HttpRequest as HttpRequest
 from awscrt.io import ClientBootstrap as ClientBootstrap
+from awscrt.io import ClientTlsContext
 
 _R = TypeVar("_R")
 
@@ -58,6 +60,17 @@ class AwsCredentialsProvider(AwsCredentialsProviderBase):
     def new_chain(cls: Type[_R], providers: List[AwsCredentialsProvider]) -> _R: ...
     @classmethod
     def new_delegate(cls: Type[_R], get_credentials: Callable[[], AwsCredentials]) -> _R: ...
+    @classmethod
+    def new_cognito(
+            cls: Type[_R],
+            *,
+            endpoint: str,
+            identity: str,
+            tls_ctx: ClientTlsContext,
+            logins: Optional[Sequence[Tuple[str, str]]] = ...,
+            custom_role_arn: Optional[str] = ...,
+            client_bootstrap: Optional[ClientBootstrap] = ...,
+            http_proxy_options: Optional[HttpProxyOptions] = ...) -> _R: ...
     def get_credentials(self) -> Future[AwsCredentials]: ...
 
 class AwsSigningAlgorithm(IntEnum):

@@ -62,15 +62,16 @@ class AwsCredentialsProvider(AwsCredentialsProviderBase):
     def new_delegate(cls: Type[_R], get_credentials: Callable[[], AwsCredentials]) -> _R: ...
     @classmethod
     def new_cognito(
-            cls: Type[_R],
-            *,
-            endpoint: str,
-            identity: str,
-            tls_ctx: ClientTlsContext,
-            logins: Optional[Sequence[Tuple[str, str]]] = ...,
-            custom_role_arn: Optional[str] = ...,
-            client_bootstrap: Optional[ClientBootstrap] = ...,
-            http_proxy_options: Optional[HttpProxyOptions] = ...) -> _R: ...
+        cls: Type[_R],
+        *,
+        endpoint: str,
+        identity: str,
+        tls_ctx: ClientTlsContext,
+        logins: Optional[Sequence[Tuple[str, str]]] = ...,
+        custom_role_arn: Optional[str] = ...,
+        client_bootstrap: Optional[ClientBootstrap] = ...,
+        http_proxy_options: Optional[HttpProxyOptions] = ...,
+    ) -> _R: ...
     def get_credentials(self) -> Future[AwsCredentials]: ...
 
 class AwsSigningAlgorithm(IntEnum):

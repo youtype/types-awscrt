@@ -4,9 +4,9 @@ set -e
 ROOT_PATH=$(dirname $(dirname $0))
 cd $ROOT_PATH
 
-npx pyright awscrt-stubs
-flake8 awscrt-stubs
-black awscrt-stubs
-isort awscrt-stubs
-mypy awscrt-stubs
-python -m istub -u
+poetry run npx pyright awscrt-stubs
+poetry run flake8 awscrt-stubs
+poetry run black awscrt-stubs
+poetry run isort awscrt-stubs
+poetry run mypy awscrt-stubs
+poetry run istub -u

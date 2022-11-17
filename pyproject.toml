@@ -37,6 +37,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: Implementation :: CPython",
     "Typing :: Stubs Only",
@@ -46,7 +47,6 @@ packages = [
     { include = "awscrt-stubs" },
 ]
 include = [
-    "LICENSE",
     "awscrt-stubs/py.typed",
     "awscrt-stubs/*.pyi",
     "awscrt-stubs/*/*.pyi",

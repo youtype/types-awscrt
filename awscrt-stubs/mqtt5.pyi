@@ -4,7 +4,6 @@ from dataclasses import dataclass
 from enum import IntEnum
 from typing import Any, Callable, Optional
 
-from _typeshed import Incomplete
 from awscrt import NativeResource as NativeResource
 from awscrt import exceptions as exceptions
 from awscrt.http import HttpProxyOptions as HttpProxyOptions

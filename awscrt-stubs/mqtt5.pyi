@@ -110,6 +110,7 @@ class ClientSessionBehaviorType(IntEnum):
     DEFAULT: int
     CLEAN: int
     REJOIN_POST_SUCCESS: int
+    REJOIN_ALWAYS: int
 
 class PacketType(IntEnum):
     NONE: int

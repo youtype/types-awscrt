@@ -73,6 +73,11 @@ class TlsVersion(IntEnum):
     TLSv1_3: int
     DEFAULT: int
 
+class TlsCipherPref(IntEnum):
+    DEFAULT: int
+    PQ_TLSv1_0_2021_05: int
+    def is_supported(self) -> bool: ...
+
 class TlsContextOptions:
     alpn_list: List[str]
     certificate_buffer: bytes
@@ -81,9 +86,10 @@ class TlsContextOptions:
     private_key_buffer: bytes
     ca_dirpath: str
     ca_buffer: bytes
-    min_tls_ver: TlsVersion
-    verify_peer: bool
-    def __init__(self) -> None: ...
+    def __init__(self) -> None:
+        self.min_tls_ver: TlsVersion
+        self.cipher_pref: TlsCipherPref
+        self.verify_peer: bool
     @staticmethod
     def create_client_with_mtls_from_path(
         cert_filepath: str, pk_filepath: str

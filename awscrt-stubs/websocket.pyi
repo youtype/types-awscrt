@@ -16,6 +16,7 @@ class Opcode(IntEnum):
     CLOSE: int
     PING: int
     PONG: int
+    def is_data_frame(self) -> bool: ...
 
 MAX_PAYLOAD_LENGTH: int
 
@@ -25,6 +26,7 @@ class OnConnectionSetupData:
     websocket: Optional["WebSocket"] = ...
     handshake_response_status: Optional[int] = ...
     handshake_response_headers: Optional[Sequence[Tuple[str, str]]] = ...
+    handshake_response_body: Optional[bytes] = ...
 
 @dataclass
 class OnConnectionShutdownData:
@@ -35,6 +37,7 @@ class IncomingFrame:
     opcode: Opcode
     payload_length: int
     fin: bool
+    def is_data_frame(self) -> bool: ...
 
 @dataclass
 class OnIncomingFrameBeginData:
@@ -65,6 +68,7 @@ class WebSocket(NativeResource):
         fin: bool = ...,
         on_complete: Optional[Callable[[OnSendFrameCompleteData], None]] = ...,
     ) -> None: ...
+    def increment_read_window(self, size: int) -> None: ...
 
 class _WebSocketCore(NativeResource):
     def __init__(
@@ -85,12 +89,12 @@ def connect(
     socket_options: Optional[SocketOptions] = ...,
     tls_connection_options: Optional[TlsConnectionOptions] = ...,
     proxy_options: Optional[HttpProxyOptions] = ...,
+    manage_read_window: bool = ...,
+    initial_read_window: Optional[int] = ...,
     on_connection_setup: Callable[[OnConnectionSetupData], None],
     on_connection_shutdown: Optional[Callable[[OnConnectionShutdownData], None]] = ...,
     on_incoming_frame_begin: Optional[Callable[[OnIncomingFrameBeginData], None]] = ...,
     on_incoming_frame_payload: Optional[Callable[[OnIncomingFramePayloadData], None]] = ...,
     on_incoming_frame_complete: Optional[Callable[[OnIncomingFrameCompleteData], None]] = ...,
-    enable_read_backpressure: bool = ...,
-    initial_read_window: Optional[int] = ...,
 ) -> None: ...
 def create_handshake_request(*, host: str, path: str = ...) -> HttpRequest: ...

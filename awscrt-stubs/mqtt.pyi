@@ -1,7 +1,7 @@
 from concurrent.futures import Future
+from dataclasses import dataclass
 from enum import IntEnum
 from typing import Any, Callable, Dict, Optional, Tuple, Union
-from dataclasses import dataclass
 
 from awscrt import NativeResource as NativeResource
 from awscrt.exceptions import AwsCrtError
@@ -37,14 +37,12 @@ class Client(NativeResource):
     ) -> None:
         self.tls_ctx: ClientTlsContext
 
-
 @dataclass
 class OperationStatisticsData:
     incomplete_operation_count: int = ...
     incomplete_operation_size: int = ...
     unacked_operation_count: int = ...
     unacked_operation_size: int = ...
-
 
 class Connection(NativeResource):
     def __init__(

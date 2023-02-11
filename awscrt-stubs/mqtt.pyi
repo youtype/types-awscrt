@@ -1,6 +1,7 @@
 from concurrent.futures import Future
 from enum import IntEnum
 from typing import Any, Callable, Dict, Optional, Tuple, Union
+from dataclasses import dataclass
 
 from awscrt import NativeResource as NativeResource
 from awscrt.exceptions import AwsCrtError
@@ -35,6 +36,15 @@ class Client(NativeResource):
         self, bootstrap: Optional[ClientBootstrap] = ..., tls_ctx: Optional[ClientTlsContext] = ...
     ) -> None:
         self.tls_ctx: ClientTlsContext
+
+
+@dataclass
+class OperationStatisticsData:
+    incomplete_operation_count: int = ...
+    incomplete_operation_size: int = ...
+    unacked_operation_count: int = ...
+    unacked_operation_size: int = ...
+
 
 class Connection(NativeResource):
     def __init__(
@@ -94,6 +104,7 @@ class Connection(NativeResource):
     def publish(
         self, topic: str, payload: Union[str, bytes, bytearray], qos: QoS, retain: bool = ...
     ) -> Tuple[Future[Optional[Dict[str, Any]]], int]: ...
+    def get_stats(self) -> OperationStatisticsData: ...
 
 class WebsocketHandshakeTransformArgs:
     def __init__(

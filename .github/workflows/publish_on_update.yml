@@ -8,7 +8,8 @@ on:
     inputs:
       force:
         required: false
-        type: string
+        type: boolean
+        default: false
         description: Force build even if consistency check fails (set to true)
       version:
         required: false
@@ -38,7 +39,7 @@ jobs:
             core.setOutput('stubs-version', '')
             const package = process.env.PACKAGE
             const stubsPackage = process.env.STUBS
-            const force = context.payload.inputs?.force === 'true'
+            const force = context.payload.inputs ? context.payload.inputs.force !== 'false' : false
 
             if (force) {
               core.notice('Force release, skipping consistency and version check')
@@ -99,8 +100,8 @@ jobs:
           poetry install -n
       - name: Commit changes
         run: |
-          git config --global user.email "github-actions"
-          git config --global user.name "github-actions@github.com"
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
           git add pyproject.toml
           git commit -m "Release ${STUBS_VERSION}"
           git push

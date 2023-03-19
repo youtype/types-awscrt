@@ -72,6 +72,17 @@ class AwsCredentialsProvider(AwsCredentialsProviderBase):
         client_bootstrap: Optional[ClientBootstrap] = ...,
         http_proxy_options: Optional[HttpProxyOptions] = ...,
     ) -> _R: ...
+    @classmethod
+    def new_x509(
+        cls: Type[_R],
+        *,
+        endpoint: str,
+        thing_name: str,
+        role_alias: str,
+        tls_ctx: ClientTlsContext,
+        client_bootstrap: Optional[ClientBootstrap] = ...,
+        http_proxy_options: Optional[HttpProxyOptions] = ...,
+    ) -> _R: ...
     def get_credentials(self) -> Future[AwsCredentials]: ...
 
 class AwsSigningAlgorithm(IntEnum):

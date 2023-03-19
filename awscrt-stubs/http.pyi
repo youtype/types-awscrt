@@ -1,6 +1,7 @@
+from collections.abc import Callable, Iterator
 from concurrent.futures import Future
 from enum import IntEnum
-from typing import IO, Any, Callable, Iterator, List, Optional, Tuple, Type, TypeVar
+from typing import IO, Any, List, Optional, Tuple, Type, TypeVar
 
 from awscrt import NativeResource as NativeResource
 from awscrt.io import ClientBootstrap as ClientBootstrap

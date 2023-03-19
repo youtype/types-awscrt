@@ -1,7 +1,8 @@
+from collections.abc import Callable, Sequence
 from concurrent.futures import Future
 from datetime import datetime
 from enum import IntEnum
-from typing import Any, Callable, List, Optional, Sequence, Tuple, Type, TypeVar
+from typing import Any, List, Optional, Tuple, Type, TypeVar
 
 from awscrt import NativeResource as NativeResource
 from awscrt.http import HttpProxyOptions

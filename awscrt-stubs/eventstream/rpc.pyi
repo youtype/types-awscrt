@@ -1,8 +1,9 @@
 import abc
 from abc import ABC, abstractmethod
+from collections.abc import Callable, Sequence
 from concurrent.futures import Future
 from enum import IntEnum
-from typing import Any, Callable, Optional, Sequence
+from typing import Any, Optional
 
 from awscrt import NativeResource
 from awscrt.eventstream import Header

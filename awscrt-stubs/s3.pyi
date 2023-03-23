@@ -1,8 +1,7 @@
-from collections.abc import Callable
 from concurrent.futures import Future
 from enum import IntEnum
 from threading import Event
-from typing import List, Optional, Tuple
+from typing import Callable, List, Optional, Tuple
 
 from awscrt import NativeResource as NativeResource
 from awscrt.auth import AwsCredentialsProvider as AwsCredentialsProvider

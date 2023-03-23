@@ -1,8 +1,7 @@
-from collections.abc import Callable, Sequence
 from concurrent.futures import Future
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Optional
+from typing import Any, Callable, Optional, Sequence
 
 from awscrt import NativeResource as NativeResource
 from awscrt import exceptions as exceptions

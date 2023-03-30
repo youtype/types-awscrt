@@ -1,18 +1,16 @@
-const assert = require('assert')
-
 let fetch = null;
 let core = null;
 let context = null;
 
 function setupGlobals(globals) {
     fetch = globals.fetch
-    assert(fetch, 'fetch is not defined')
+    if (!fetch) throw new Error('fetch is not defined')
 
     core = globals.core
-    assert(core, 'core is not defined')
+    if (!core) throw new Error('core is not defined')
 
     context = globals.context
-    assert(context, 'context is not defined')
+    if (!context) throw new Error('context is not defined')
 }
 
 function sortVersions(versions) {

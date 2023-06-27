@@ -146,6 +146,7 @@ class Pkcs11Lib(NativeResource):
         DEFAULT: int
         OMIT: int
         STRICT: int
+
     def __init__(
         self, *, file: str, behavior: Optional[InitializeFinalizeBehavior] = ...
     ) -> None: ...

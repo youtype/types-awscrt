@@ -31,6 +31,18 @@ class Will:
         self.payload: bytes
         self.retain: bool
 
+@dataclass
+class OnConnectionSuccessData:
+    return_code: Optional[ConnectReturnCode] = ...
+    session_present: bool = ...
+
+@dataclass
+class OnConnectionFailureData:
+    error: Optional[AwsCrtError] = ...
+
+@dataclass
+class OnConnectionClosedData: ...
+
 class Client(NativeResource):
     def __init__(
         self, bootstrap: Optional[ClientBootstrap] = ..., tls_ctx: Optional[ClientTlsContext] = ...
@@ -71,6 +83,9 @@ class Connection(NativeResource):
             Callable[[WebsocketHandshakeTransformArgs], None]
         ] = ...,
         proxy_options: Optional[HttpProxyOptions] = ...,
+        on_connection_success: Optional[Callable[[Connection], OnConnectionSuccessData]] = ...,
+        on_connection_failure: Optional[Callable[[Connection], OnConnectionFailureData]] = ...,
+        on_connection_closed: Optional[Callable[[Connection], OnConnectionClosedData]] = ...,
     ) -> None:
         self.client: Client
         self.client_id: str

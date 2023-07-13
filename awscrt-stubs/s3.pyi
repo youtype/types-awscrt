@@ -1,10 +1,11 @@
 from concurrent.futures import Future
 from enum import IntEnum
 from threading import Event
-from typing import Callable, List, Optional, Tuple
+from typing import Any, Callable, List, Optional, Tuple
 
 from awscrt import NativeResource as NativeResource
 from awscrt.auth import AwsCredentialsProvider as AwsCredentialsProvider
+from awscrt.auth import AwsSigningConfig
 from awscrt.http import HttpRequest as HttpRequest
 from awscrt.io import ClientBootstrap as ClientBootstrap
 from awscrt.io import TlsConnectionOptions as TlsConnectionOptions
@@ -26,6 +27,7 @@ class S3Client(NativeResource):
         bootstrap: Optional[ClientBootstrap],
         region: str,
         tls_mode: Optional[S3RequestTlsMode] = ...,
+        signing_config: Optional[AwsSigningConfig] = ...,
         credential_provider: Optional[S3RequestTlsMode] = ...,
         tls_connection_options: Optional[TlsConnectionOptions] = ...,
         part_size: Optional[int] = ...,
@@ -36,6 +38,7 @@ class S3Client(NativeResource):
         *,
         request: HttpRequest,
         type: S3RequestType,
+        signing_config: Optional[AwsSigningConfig] = ...,
         credential_provider: Optional[AwsCredentialsProvider] = ...,
         recv_filepath: Optional[str] = ...,
         send_filepath: Optional[str] = ...,
@@ -57,6 +60,7 @@ class S3Request(NativeResource):
         client: S3Client,
         request: HttpRequest,
         type: S3RequestType,
+        signing_config: Optional[AwsSigningConfig] = ...,
         credential_provider: Optional[AwsCredentialsProvider] = ...,
         recv_filepath: Optional[str] = ...,
         send_filepath: Optional[str] = ...,
@@ -79,6 +83,7 @@ class _S3ClientCore:
         self,
         bootstrap: ClientBootstrap,
         credential_provider: Optional[AwsCredentialsProvider] = ...,
+        signing_config: Optional[AwsSigningConfig] = ...,
         tls_connection_options: Optional[TlsConnectionOptions] = ...,
     ) -> None: ...
 
@@ -88,6 +93,7 @@ class _S3RequestCore:
         request: HttpRequest,
         finish_future: Future[Optional[BaseException]],
         shutdown_event: Event,
+        signing_config: Optional[AwsSigningConfig] = ...,
         credential_provider: Optional[AwsCredentialsProvider] = ...,
         on_headers: Optional[Callable[[int, List[Tuple[str, str]]], None]] = ...,
         on_body: Optional[Callable[[bytes, int], None]] = ...,
@@ -98,3 +104,7 @@ class _S3RequestCore:
         ] = ...,
         on_progress: Optional[Callable[[int], None]] = ...,
     ) -> None: ...
+
+def create_default_s3_signing_config(
+    *, region: str, credential_provider: AwsCredentialsProvider, **kwargs: Any
+) -> AwsSigningConfig: ...

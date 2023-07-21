@@ -57,13 +57,14 @@ jobs:
         run: |
           python -m pip install -U poetry pip
           poetry install -n
+          poetry run pip install -U twine
       - name: Install package
         run: |
           poetry run pip install ${PACKAGE}==${VERSION}
       - name: Stubs consistency check
         if: "${{ github.event.inputs.force != 'true' }}"
         run: |
-          poetry run istub
+          poetry run istub -d
       - name: Bump version
         run: |
           echo "Bumping version to ${STUBS_VERSION}"

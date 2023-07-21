@@ -3,7 +3,7 @@
 [![PyPI - types-awscrt](https://img.shields.io/pypi/v/types-awscrt.svg?color=blue&label=types-awscrt)](https://pypi.org/project/types-awscrt)
 [![PyPI - awscrt](https://img.shields.io/pypi/v/awscrt.svg?color=blue&label=awscrt)](https://pypi.org/project/awscrt)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/types-awscrt.svg?color=blue)](https://pypi.org/project/types-awscrt)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/types-awscrt?color=blue)](https://pypistats.org/packages/types-awscrt)
+[![PyPI - Downloads](https://static.pepy.tech/badge/types-awscrt)](https://pepy.tech/project/types-awscrt)
 
 ![boto3.typed](https://github.com/youtype/mypy_boto3_builder/raw/main/logo.png)
 

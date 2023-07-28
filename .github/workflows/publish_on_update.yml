@@ -1,4 +1,4 @@
-name: Publish
+name: Publish types-awscrt
 concurrency: publish
 
 on:

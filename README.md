@@ -5,12 +5,22 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/types-awscrt.svg?color=blue)](https://pypi.org/project/types-awscrt)
 [![PyPI - Downloads](https://static.pepy.tech/badge/types-awscrt)](https://pepy.tech/project/types-awscrt)
 
-[![Publish types-awscrt](https://github.com/youtype/types-awscrt/actions/workflows/publish_on_update.yml/badge.svg)](https://github.com/youtype/types-awscrt/actions/workflows/publish_on_update.yml)
-
 ![boto3.typed](https://github.com/youtype/mypy_boto3_builder/raw/main/logo.png)
 
 Type annotations and code completion for [awscrt](https://pypi.org/project/awscrt/) package.
 This package is a part of [mypy_boto3_builder](https://github.com/youtype/mypy_boto3_builder) project.
+
+[![Publish botocore-stubs](https://github.com/youtype/botocore-stubs/actions/workflows/publish_on_update.yml/badge.svg)](https://github.com/youtype/botocore-stubs/actions/workflows/publish_on_update.yml)
+[![Publish types-awscrt](https://github.com/youtype/types-awscrt/actions/workflows/publish_on_update.yml/badge.svg)](https://github.com/youtype/types-awscrt/actions/workflows/publish_on_update.yml)
+[![Publish types-s3transfer](https://github.com/youtype/types-s3transfer/actions/workflows/publish_on_update.yml/badge.svg)](https://github.com/youtype/types-s3transfer/actions/workflows/publish_on_update.yml)
+
+- [types-awscrt](#types-awscrt)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Latest changes](#latest-changes)
+  - [Versioning](#versioning)
+  - [Support and contributing](#support-and-contributing)
+
 
 ## Installation
 

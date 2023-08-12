@@ -16,7 +16,7 @@ src_paths = []
 
 [tool.poetry]
 name = "types-awscrt"
-version = "0.17.0"
+version = "0.18.0"
 description = "Type annotations and code completion for awscrt"
 authors = ["Vlad Emelianov <vlad.emelianov.nz@gmail.com>"]
 license = "MIT"

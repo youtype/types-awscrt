@@ -10,11 +10,14 @@ from awscrt.http import HttpRequest as HttpRequest
 from awscrt.io import ClientBootstrap as ClientBootstrap
 from awscrt.io import ClientTlsContext as ClientTlsContext
 from awscrt.io import SocketOptions as SocketOptions
+from awscrt.mqtt5 import QoS as Mqtt5QoS
 
 class QoS(IntEnum):
     AT_MOST_ONCE: int
     AT_LEAST_ONCE: int
     EXACTLY_ONCE: int
+
+    def to_mqtt5(self) -> Mqtt5QoS: ...
 
 class ConnectReturnCode(IntEnum):
     ACCEPTED: int

@@ -5,16 +5,27 @@ from typing import Any, Callable, Optional, Sequence
 
 from awscrt import NativeResource as NativeResource
 from awscrt import exceptions as exceptions
+from awscrt.exceptions import AwsCrtError
 from awscrt.http import HttpProxyOptions as HttpProxyOptions
 from awscrt.http import HttpRequest as HttpRequest
 from awscrt.io import ClientBootstrap as ClientBootstrap
 from awscrt.io import ClientTlsContext as ClientTlsContext
 from awscrt.io import SocketOptions as SocketOptions
+from awscrt.mqtt import (
+    Connection,
+    ConnectReturnCode,
+    OnConnectionClosedData,
+    OnConnectionFailureData,
+    OnConnectionSuccessData,
+)
+from awscrt.mqtt import QoS as Mqtt3QoS
 
 class QoS(IntEnum):
     AT_MOST_ONCE: int
     AT_LEAST_ONCE: int
     EXACTLY_ONCE: int
+
+    def to_mqtt3(self) -> Mqtt3QoS: ...
 
 class ConnectReasonCode(IntEnum):
     SUCCESS: int
@@ -357,3 +368,17 @@ class Client(NativeResource):
     def subscribe(self, subscribe_packet: SubscribePacket) -> Future[SubackPacket]: ...
     def unsubscribe(self, unsubscribe_packet: UnsubscribePacket) -> Future[UnsubackPacket]: ...
     def get_stats(self) -> Future[OperationStatisticsData]: ...
+    def new_connection(
+        self,
+        on_connection_interrupted: Optional[Callable[[Connection, AwsCrtError], None]] = ...,
+        on_connection_resumed: Optional[
+            Callable[[Connection, ConnectReturnCode, bool], None]
+        ] = ...,
+        on_connection_success: Optional[
+            Callable[[Connection, OnConnectionSuccessData], None]
+        ] = ...,
+        on_connection_failure: Optional[
+            Callable[[Connection, OnConnectionFailureData], None]
+        ] = ...,
+        on_connection_closed: Optional[Callable[[Connection, OnConnectionClosedData], None]] = ...,
+    ) -> Connection: ...

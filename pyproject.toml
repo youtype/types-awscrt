@@ -1,12 +1,7 @@
 [tool.black]
 line-length = 100
 include = '(awscrt-stubs)/.*\.pyi?$'
-target-version = [
-    'py37',
-    'py38',
-    'py39',
-    'py310',
-]
+target-version = ['py37', 'py38', 'py39', 'py310']
 preview = true
 
 [tool.isort]
@@ -43,9 +38,7 @@ classifiers = [
     "Typing :: Stubs Only",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-packages = [
-    { include = "awscrt-stubs" },
-]
+packages = [{ include = "awscrt-stubs" }]
 include = [
     "awscrt-stubs/py.typed",
     "awscrt-stubs/*.pyi",
@@ -64,7 +57,7 @@ python = "^3.7"
 awscrt = "*"
 isort = { version = "*", python = ">=3.10" }
 black = { version = "*", python = ">=3.10" }
-mypy = { version = "*", python = ">=3.10" }
+mypy = { version = "1.4.1", python = ">=3.10" }
 flake8 = { version = "*", python = ">=3.10" }
 istub = { version = "*", python = ">=3.10" }
 
@@ -73,14 +66,8 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pyright]
-include = [
-    "awscrt-stubs",
-]
-exclude = [
-    "**/__pycache__",
-    "tests",
-    "typestubs",
-]
+include = ["awscrt-stubs"]
+exclude = ["**/__pycache__", "tests", "typestubs"]
 reportMissingImports = "error"
 reportMissingTypeStubs = false
 reportMissingTypeArgument = "error"

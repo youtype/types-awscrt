@@ -1,4 +1,5 @@
 from concurrent.futures import Future
+from dataclasses import dataclass
 from enum import IntEnum
 from threading import Event
 from typing import Any, Callable, List, Optional, Tuple
@@ -18,6 +19,22 @@ class S3RequestType(IntEnum):
 class S3RequestTlsMode(IntEnum):
     ENABLED: int
     DISABLED: int
+
+class S3ChecksumAlgorithm(IntEnum):
+    CRC32C: int
+    CRC32: int
+    SHA1: int
+    SHA256: int
+
+class S3ChecksumLocation(IntEnum):
+    HEADER: int
+    TRAILER: int
+
+@dataclass
+class S3ChecksumConfig:
+    algorithm: Optional[S3ChecksumAlgorithm] = ...
+    location: Optional[S3ChecksumLocation] = ...
+    validate_response: bool = ...
 
 class S3Client(NativeResource):
     shutdown_event: Event
@@ -40,6 +57,7 @@ class S3Client(NativeResource):
         type: S3RequestType,
         signing_config: Optional[AwsSigningConfig] = ...,
         credential_provider: Optional[AwsCredentialsProvider] = ...,
+        checksum_config: Optional[S3ChecksumConfig] = ...,
         recv_filepath: Optional[str] = ...,
         send_filepath: Optional[str] = ...,
         on_headers: Optional[Callable[[int, List[Tuple[str, str]]], None]] = ...,
@@ -62,6 +80,7 @@ class S3Request(NativeResource):
         type: S3RequestType,
         signing_config: Optional[AwsSigningConfig] = ...,
         credential_provider: Optional[AwsCredentialsProvider] = ...,
+        checksum_config: Optional[S3ChecksumConfig] = ...,
         recv_filepath: Optional[str] = ...,
         send_filepath: Optional[str] = ...,
         on_headers: Optional[Callable[[int, List[Tuple[str, str]]], None]] = ...,

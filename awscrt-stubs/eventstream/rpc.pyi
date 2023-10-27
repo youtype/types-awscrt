@@ -51,6 +51,7 @@ class ClientConnection(NativeResource):
         self.host_name: str
         self.port: int
         self.shutdown_future: Future[None]
+
     @classmethod
     def connect(
         cls,
@@ -79,6 +80,7 @@ class ClientContinuation(NativeResource):
     def __init__(self, handler: ClientConnectionHandler, connection: ClientConnection) -> None:
         self.connection: ClientConnection
         closed_future: Future[None]
+
     def activate(
         self,
         *,

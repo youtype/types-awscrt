@@ -6,22 +6,3 @@ packages:
       pyright: false
       mypy: false
       stubtest: true
-    snapshots:
-      stubtest: |-
-        error: awscrt.mqtt.OnConnectionClosedData.__match_args__ is not present in stub
-        Stub: in file ./awscrt-stubs/mqtt.pyi
-        MISSING
-        Runtime:
-        ()
-
-        error: awscrt.mqtt5.LifecycleAttemptingConnectData.__match_args__ is not present in stub
-        Stub: in file ./awscrt-stubs/mqtt5.pyi
-        MISSING
-        Runtime:
-        ()
-
-        error: awscrt.mqtt5.LifecycleStoppedData.__match_args__ is not present in stub
-        Stub: in file ./awscrt-stubs/mqtt5.pyi
-        MISSING
-        Runtime:
-        ()

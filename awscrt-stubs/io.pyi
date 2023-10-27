@@ -90,6 +90,7 @@ class TlsContextOptions:
         self.min_tls_ver: TlsVersion
         self.cipher_pref: TlsCipherPref
         self.verify_peer: bool
+
     @staticmethod
     def create_client_with_mtls_from_path(
         cert_filepath: str, pk_filepath: str

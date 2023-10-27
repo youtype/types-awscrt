@@ -284,6 +284,7 @@ class WebsocketHandshakeTransformArgs:
     def __init__(self, client: Client, http_request: HttpRequest, done_future: Future[Any]) -> None:
         self.client: Client
         self.http_request: HttpRequest
+
     def set_done(self, exception: Optional[Exception] = ...) -> None: ...
 
 @dataclass

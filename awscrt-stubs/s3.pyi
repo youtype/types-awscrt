@@ -48,6 +48,7 @@ class S3Client(NativeResource):
         credential_provider: Optional[S3RequestTlsMode] = ...,
         tls_connection_options: Optional[TlsConnectionOptions] = ...,
         part_size: Optional[int] = ...,
+        multipart_upload_threshold: Optional[int] = ...,
         throughput_target_gbps: Optional[float] = ...,
     ) -> None: ...
     def make_request(

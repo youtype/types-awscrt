@@ -13,6 +13,7 @@ on:
         description: Force build even if consistency check fails (set to true)
       version:
         required: false
+        default: ""
         type: string
         description: Use a specific package version, latest otherwise
 
@@ -72,6 +73,7 @@ jobs:
           rm -rf *.egg-info || true
           poetry install -n
       - name: Commit changes
+        if: "${{ github.event.inputs.version == '' }}"
         run: |
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"

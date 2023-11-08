@@ -2,7 +2,7 @@ from concurrent.futures import Future
 from dataclasses import dataclass
 from enum import IntEnum
 from threading import Event
-from typing import Any, Callable, List, Optional, Tuple
+from typing import Any, Callable, List, Optional, Tuple, Type
 
 from awscrt import NativeResource as NativeResource
 from awscrt.auth import AwsCredentialsProvider as AwsCredentialsProvider
@@ -10,6 +10,18 @@ from awscrt.auth import AwsSigningConfig
 from awscrt.http import HttpRequest as HttpRequest
 from awscrt.io import ClientBootstrap as ClientBootstrap
 from awscrt.io import TlsConnectionOptions as TlsConnectionOptions
+
+class CrossProcessLock(NativeResource):
+    def __init__(self, lock_scope_name: str) -> None: ...
+    def acquire(self) -> None: ...
+    def __enter__(self) -> None: ...
+    def release(self) -> None: ...
+    def __exit__(
+        self,
+        exc_type: Optional[Type[Exception]],
+        exc_value: Optional[Exception],
+        exc_tb: Any,
+    ) -> None: ...
 
 class S3RequestType(IntEnum):
     DEFAULT: int

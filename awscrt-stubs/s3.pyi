@@ -2,6 +2,7 @@ from concurrent.futures import Future
 from dataclasses import dataclass
 from enum import IntEnum
 from threading import Event
+from types import TracebackType
 from typing import Any, Callable, List, Optional, Tuple, Type
 
 from awscrt import NativeResource as NativeResource
@@ -20,7 +21,7 @@ class CrossProcessLock(NativeResource):
         self,
         exc_type: Optional[Type[Exception]],
         exc_value: Optional[Exception],
-        exc_tb: Any,
+        exc_tb: Optional[TracebackType],
     ) -> None: ...
 
 class S3RequestType(IntEnum):

@@ -8,6 +8,7 @@ from typing import Any, Callable, List, Optional, Tuple, Type
 from awscrt import NativeResource as NativeResource
 from awscrt.auth import AwsCredentialsProvider as AwsCredentialsProvider
 from awscrt.auth import AwsSigningConfig
+from awscrt.exceptions import AwsCrtError
 from awscrt.http import HttpRequest as HttpRequest
 from awscrt.io import ClientBootstrap as ClientBootstrap
 from awscrt.io import TlsConnectionOptions as TlsConnectionOptions
@@ -111,6 +112,18 @@ class S3Request(NativeResource):
     def finished_future(self) -> Future[Optional[BaseException]]: ...
     def cancel(self) -> None: ...
 
+class S3ResponseError(AwsCrtError):
+    def __init__(
+        self,
+        *,
+        code: int,
+        name: str,
+        message: str,
+        status_code: Optional[List[Tuple[str, str]]] = ...,
+        headers: Optional[List[Tuple[str, str]]] = ...,
+        body: Optional[bytes] = ...,
+    ) -> None: ...
+
 class _S3ClientCore:
     def __init__(
         self,
@@ -143,4 +156,5 @@ def create_default_s3_signing_config(
 ) -> AwsSigningConfig: ...
 def get_ec2_instance_type() -> str: ...
 def is_optimized_for_system() -> bool: ...
+def get_optimized_platforms() -> List[str]: ...
 def get_recommended_throughput_target_gbps() -> Optional[float]: ...

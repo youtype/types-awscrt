@@ -11,7 +11,7 @@ from awscrt.auth import AwsSigningConfig
 from awscrt.exceptions import AwsCrtError
 from awscrt.http import HttpRequest as HttpRequest
 from awscrt.io import ClientBootstrap as ClientBootstrap
-from awscrt.io import TlsConnectionOptions as TlsConnectionOptions
+from awscrt.io import TlsConnectionOptions
 
 class CrossProcessLock(NativeResource):
     def __init__(self, lock_scope_name: str) -> None: ...
@@ -55,7 +55,7 @@ class S3Client(NativeResource):
     def __init__(
         self,
         *,
-        bootstrap: Optional[ClientBootstrap],
+        bootstrap: Optional[ClientBootstrap] = ...,
         region: str,
         tls_mode: Optional[S3RequestTlsMode] = ...,
         signing_config: Optional[AwsSigningConfig] = ...,
@@ -64,12 +64,14 @@ class S3Client(NativeResource):
         part_size: Optional[int] = ...,
         multipart_upload_threshold: Optional[int] = ...,
         throughput_target_gbps: Optional[float] = ...,
+        memory_limit: Optional[int] = ...,
     ) -> None: ...
     def make_request(
         self,
         *,
-        request: HttpRequest,
         type: S3RequestType,
+        request: HttpRequest,
+        operation_name: Optional[str] = ...,
         signing_config: Optional[AwsSigningConfig] = ...,
         credential_provider: Optional[AwsCredentialsProvider] = ...,
         checksum_config: Optional[S3ChecksumConfig] = ...,
@@ -91,8 +93,9 @@ class S3Request(NativeResource):
         self,
         *,
         client: S3Client,
-        request: HttpRequest,
         type: S3RequestType,
+        request: HttpRequest,
+        operation_name: Optional[str] = ...,
         signing_config: Optional[AwsSigningConfig] = ...,
         credential_provider: Optional[AwsCredentialsProvider] = ...,
         checksum_config: Optional[S3ChecksumConfig] = ...,
@@ -122,6 +125,7 @@ class S3ResponseError(AwsCrtError):
         status_code: Optional[List[Tuple[str, str]]] = ...,
         headers: Optional[List[Tuple[str, str]]] = ...,
         body: Optional[bytes] = ...,
+        operation_name: Optional[str] = ...,
     ) -> None: ...
 
 class _S3ClientCore:

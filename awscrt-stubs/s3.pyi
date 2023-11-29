@@ -64,6 +64,7 @@ class S3Client(NativeResource):
         part_size: Optional[int] = ...,
         multipart_upload_threshold: Optional[int] = ...,
         throughput_target_gbps: Optional[float] = ...,
+        enable_s3express: bool = ...,
         memory_limit: Optional[int] = ...,
     ) -> None: ...
     def make_request(

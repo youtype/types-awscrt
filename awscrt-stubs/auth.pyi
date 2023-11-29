@@ -88,6 +88,7 @@ class AwsCredentialsProvider(AwsCredentialsProviderBase):
 class AwsSigningAlgorithm(IntEnum):
     V4: int
     V4_ASYMMETRIC: int
+    V4_S3EXPRESS: int
 
 class AwsSignatureType(IntEnum):
     HTTP_REQUEST_HEADERS: int
@@ -106,11 +107,11 @@ class AwsSignedBodyHeaderType(IntEnum):
 class AwsSigningConfig(NativeResource):
     def __init__(
         self,
-        algorithm: AwsSigningAlgorithm,
-        signature_type: AwsSignatureType,
-        credentials_provider: AwsCredentialsProvider,
-        region: str,
-        service: str,
+        algorithm: AwsSigningAlgorithm = ...,
+        signature_type: AwsSignatureType = ...,
+        credentials_provider: Optional[AwsCredentialsProvider] = ...,
+        region: str = ...,
+        service: str = ...,
         date: Optional[datetime] = ...,
         should_sign_header: Optional[Callable[[str], bool]] = ...,
         use_double_uri_encode: bool = ...,

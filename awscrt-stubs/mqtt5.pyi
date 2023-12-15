@@ -1,7 +1,7 @@
 from concurrent.futures import Future
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Callable, Optional, Sequence
+from typing import Any, Callable, Optional, Sequence, Union
 
 from awscrt import NativeResource as NativeResource
 from awscrt import exceptions as exceptions
@@ -122,28 +122,14 @@ class ClientSessionBehaviorType(IntEnum):
     REJOIN_POST_SUCCESS: int
     REJOIN_ALWAYS: int
 
-class PacketType(IntEnum):
-    NONE: int
-    RESERVED: int
-    CONNECT: int
-    CONNACK: int
-    PUBLISH: int
-    PUBACK: int
-    PUBREC: int
-    PUBREL: int
-    PUBCOMP: int
-    SUBSCRIBE: int
-    SUBACK: int
-    UNSUBSCRIBE: int
-    UNSUBACK: int
-    PINGREQ: int
-    PINGRESP: int
-    DISCONNECT: int
-    AUTH: int
-
 class PayloadFormatIndicator(IntEnum):
     AWS_MQTT5_PFI_BYTES: int
     AWS_MQTT5_PFI_UTF8: int
+
+class RetainHandlingType(IntEnum):
+    SEND_ON_SUBSCRIBE: int
+    SEND_ON_SUBSCRIBE_IF_NEW: int
+    DONT_SEND: int
 
 class RetainAndHandlingType(IntEnum):
     SEND_ON_SUBSCRIBE: int
@@ -203,6 +189,7 @@ class NegotiatedSettings:
     subscription_identifiers_available: Optional[bool] = ...
     shared_subscriptions_available: Optional[bool] = ...
     rejoined_session: Optional[bool] = ...
+    client_id: Optional[str] = ...
 
 @dataclass
 class ConnackPacket:
@@ -220,9 +207,14 @@ class ConnackPacket:
     wildcard_subscriptions_available: Optional[bool] = ...
     subscription_identifiers_available: Optional[bool] = ...
     shared_subscription_available: Optional[bool] = ...
-    server_keep_alive: Optional[int] = ...
+    server_keep_alive_sec: Optional[int] = ...
     response_information: Optional[str] = ...
     server_reference: Optional[str] = ...
+
+    @property
+    def server_keep_alive(self) -> Optional[int]: ...
+    @server_keep_alive.setter
+    def server_keep_alive(self, value: Optional[int]) -> None: ...
 
 @dataclass
 class DisconnectPacket:
@@ -238,7 +230,7 @@ class Subscription:
     qos: Optional[QoS] = ...
     no_local: Optional[bool] = ...
     retain_as_published: Optional[bool] = ...
-    retain_handling_type: Optional[RetainAndHandlingType] = ...
+    retain_handling_type: Optional[Union[RetainAndHandlingType, RetainHandlingType]] = ...
 
 @dataclass
 class SubscribePacket:

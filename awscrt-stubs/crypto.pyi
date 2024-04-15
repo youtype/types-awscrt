@@ -34,11 +34,11 @@ class RSA(NativeResource):
     def __init__(self, binding: Any) -> None: ...
     @staticmethod
     def new_private_key_from_pem_data(
-        pem_data: Union[str, bytes, bytearray, memoryview]
+        pem_data: Union[str, bytes, bytearray, memoryview],
     ) -> "RSA": ...
     @staticmethod
     def new_public_key_from_pem_data(
-        pem_data: Union[str, bytes, bytearray, memoryview]
+        pem_data: Union[str, bytes, bytearray, memoryview],
     ) -> "RSA": ...
     def encrypt(
         self,

@@ -113,7 +113,7 @@ class UnsubackReasonCode(IntEnum):
     UNSPECIFIED_ERROR: int
     IMPLEMENTATION_SPECIFIC_ERROR: int
     NOT_AUTHORIZED: int
-    TOPIC_NAME_INVALID: int
+    TOPIC_FILTER_INVALID: int
     PACKET_IDENTIFIER_IN_USE: int
 
 class ClientSessionBehaviorType(IntEnum):

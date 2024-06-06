@@ -4,9 +4,8 @@ set -e
 ROOT_PATH=$(dirname $(dirname $0))
 cd $ROOT_PATH
 
-poetry run npx pyright awscrt-stubs
-poetry run flake8 awscrt-stubs
-poetry run black awscrt-stubs
-poetry run isort awscrt-stubs
+poetry run pyright
+poetry run ruff check
+poetry run ruff format --check
 poetry run mypy awscrt-stubs
 poetry run istub -u

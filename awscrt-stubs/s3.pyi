@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import IntEnum
 from threading import Event
 from types import TracebackType
-from typing import Any, Callable, List, Optional, Tuple, Type
+from typing import Any, Callable, List, Optional, Sequence, Tuple, Type
 
 from awscrt import NativeResource as NativeResource
 from awscrt.auth import AwsCredentialsProvider as AwsCredentialsProvider
@@ -66,6 +66,7 @@ class S3Client(NativeResource):
         throughput_target_gbps: Optional[float] = ...,
         enable_s3express: bool = ...,
         memory_limit: Optional[int] = ...,
+        network_interface_names: Optional[Sequence[str]] = ...,
     ) -> None: ...
     def make_request(
         self,

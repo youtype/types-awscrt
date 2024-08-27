@@ -14,41 +14,31 @@ jobs:
     strategy:
       matrix:
         version:
-          - "3.7"
           - "3.8"
           - "3.9"
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
         include:
           - version: "3.11"
             check-formatting: "true"
             check-consistency: "true"
     steps:
       - uses: actions/checkout@v4
-      - name: Install poetry
-        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.version }}
-          cache: "poetry"
-      - name: Install dependencies
+          allow-prereleases: true
+      - name: Set up uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - name: Install the project
         run: |
-          poetry install -n
-      - name: Install missing dependencies
-        run: |
-          poetry run pip install mypy
-      - name: Lint
-        run: |
-          poetry run pyright
-          poetry run ruff check
-          poetry run mypy awscrt-stubs
-      - name: Check formatting
-        if: ${{ matrix.check-formatting }}
-        run: |
-          poetry run ruff format --check
+          uv sync --all-extras --dev
+      - name: Run pre-commit
+        run: uv run pre-commit run --all-files
       - name: Stubs consistency check
         if: ${{ matrix.check-consistency }}
         run: |
-          poetry run istub -d
+          uv run istub -d

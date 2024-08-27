@@ -1,0 +1,3 @@
+awscrt-stubs/py.typed
+awscrt-stubs/*.pyi
+awscrt-stubs/*/*.pyi

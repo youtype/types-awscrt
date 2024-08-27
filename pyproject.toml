@@ -1,24 +1,11 @@
-[tool.black]
-line-length = 100
-include = '(awscrt-stubs)/.*\.pyi?$'
-target-version = ['py37', 'py38', 'py39', 'py310']
-preview = true
-
-[tool.isort]
-profile = "black"
-line_length = 100
-src_paths = []
-
-[tool.poetry]
+[project]
 name = "types-awscrt"
 version = "0.21.2"
+requires-python = ">= 3.8"
 description = "Type annotations and code completion for awscrt"
-authors = ["Vlad Emelianov <vlad.emelianov.nz@gmail.com>"]
-license = "MIT"
+authors = [{ name = "Vlad Emelianov", email = "vlad.emelianov.nz@gmail.com" }]
+license = { file = "LICENSE" }
 readme = "README.md"
-homepage = "https://youtype.github.io/mypy_boto3_builder/"
-repository = "https://github.com/youtype/types-awscrt"
-documentation = "https://youtype.github.io/mypy_boto3_builder/"
 keywords = ["awscrt", "type-annotations", "pyright", "mypy", "boto3"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -27,7 +14,6 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -39,31 +25,33 @@ classifiers = [
     "Typing :: Stubs Only",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-packages = [{ include = "awscrt-stubs" }]
-include = [
-    "awscrt-stubs/py.typed",
-    "awscrt-stubs/*.pyi",
-    "awscrt-stubs/*/*.pyi",
+
+[tool.uv]
+config-settings = { editable-mode = "strict" }
+dev-dependencies = [
+    "setuptools",
+    "pre-commit",
+    "awscrt",
+    "mypy",
+    "ruff",
+    "pyright",
+    "istub",
 ]
 
-[tool.poetry.urls]
-"Documentation" = "https://youtype.github.io/mypy_boto3_builder/"
-"Source" = "https://github.com/youtype/types-awscrt"
-"Bug Tracker" = "https://github.com/youtype/types-awscrt/issues"
+[project.urls]
+Homepage = "https://github.com/youtype/types-awscrt"
+Documentation = "https://youtype.github.io/mypy_boto3_builder/"
+Repository = "https://github.com/youtype/types-awscrt"
+Changelog = "https://github.com/youtype/types-awscrt/releases"
+Issues = "https://github.com/youtype/types-awscrt/issues"
 
-[tool.poetry.dependencies]
-python = "^3.7"
-
-[tool.poetry.dev-dependencies]
-awscrt = "*"
-pyright = "*"
-ruff = "*"
-mypy = { version = "*", python = ">=3.10" }
-istub = { version = "*", python = ">=3.10" }
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
+
+[tool.setuptools]
+packages = ["awscrt-stubs", "awscrt-stubs.eventstream"]
 
 [tool.pyright]
 include = ["awscrt-stubs"]
@@ -74,10 +62,10 @@ reportMissingTypeArgument = "error"
 reportIncompatibleMethodOverride = "error"
 reportIncompatibleVariableOverride = "error"
 reportUnknownParameterType = "error"
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 
 [tool.mypy]
-python_version = "3.7"
+python_version = "3.8"
 warn_return_any = false
 warn_unused_ignores = false
 warn_unused_configs = true
@@ -101,7 +89,7 @@ exclude = [
 
 line-length = 100
 indent-width = 4
-target-version = "py37"
+target-version = "py38"
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "B", "I", "N", "D", "C4", "C90", "RUF"]

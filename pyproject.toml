@@ -28,15 +28,7 @@ classifiers = [
 
 [tool.uv]
 config-settings = { editable-mode = "strict" }
-dev-dependencies = [
-    "setuptools",
-    "pre-commit",
-    "awscrt",
-    "mypy",
-    "ruff",
-    "pyright",
-    "istub",
-]
+dev-dependencies = ["setuptools", "awscrt", "mypy", "pyright", "istub"]
 
 [project.urls]
 Homepage = "https://github.com/youtype/types-awscrt"

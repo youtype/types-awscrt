@@ -80,7 +80,10 @@ jobs:
       - name: Publish to PyPI
         env:
           UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: uv publish
+        run: |
+          rm -rf dist/* || true
+          uv build --sdist --wheel
+          uv publish
       - name: Report status
         uses: actions/github-script@v7
         with:

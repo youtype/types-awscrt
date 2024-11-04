@@ -37,7 +37,7 @@ jobs:
         run: |
           uv sync --all-extras --dev
       - name: Run pre-commit
-        run: uv run pre-commit run --all-files
+        run: uvx pre-commit run --all-files
       - name: Stubs consistency check
         if: ${{ matrix.check-consistency }}
         run: |

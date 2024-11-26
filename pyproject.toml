@@ -49,6 +49,7 @@ packages = ["awscrt-stubs", "awscrt-stubs.eventstream"]
 [tool.pyright]
 include = ["awscrt-stubs"]
 exclude = ["**/__pycache__", "tests", "typestubs"]
+ignore = ["test.py"]
 reportMissingImports = "error"
 reportMissingTypeStubs = false
 reportMissingTypeArgument = "error"

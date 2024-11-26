@@ -21,9 +21,6 @@ jobs:
           - "3.12"
           - "3.13"
           - "3.14"
-        include:
-          - version: "3.13"
-            check-consistency: "true"
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -39,6 +36,5 @@ jobs:
       - name: Run pre-commit
         run: uvx pre-commit run --all-files
       - name: Stubs consistency check
-        if: ${{ matrix.check-consistency }}
         run: |
           uv run istub -d

@@ -1,3 +1,7 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 from awscrt import auth as auth
 from awscrt import crypto as crypto
 from awscrt import http as http

@@ -1,3 +1,7 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 def from_code(code: int) -> AwsCrtError: ...
 
 class AwsCrtError(Exception):

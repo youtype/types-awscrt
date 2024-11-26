@@ -1,7 +1,11 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 from concurrent.futures import Future
 from datetime import datetime
 from enum import IntEnum
-from typing import Any, Callable, List, Optional, Sequence, Tuple, Type, TypeVar
+from typing import Any, Callable, Sequence, TypeVar
 
 from awscrt import NativeResource as NativeResource
 from awscrt.http import HttpProxyOptions
@@ -16,8 +20,8 @@ class AwsCredentials(NativeResource):
         self,
         access_key_id: str,
         secret_access_key: str,
-        session_token: Optional[str] = ...,
-        expiration: Optional[datetime] = ...,
+        session_token: str | None = ...,
+        expiration: datetime | None = ...,
     ) -> None: ...
     @property
     def access_key_id(self) -> str: ...
@@ -26,7 +30,7 @@ class AwsCredentials(NativeResource):
     @property
     def session_token(self) -> str: ...
     @property
-    def expiration(self) -> Optional[datetime]: ...
+    def expiration(self) -> datetime | None: ...
     def __deepcopy__(self: _R, memo: Any) -> _R: ...
 
 class AwsCredentialsProviderBase(NativeResource): ...
@@ -34,54 +38,52 @@ class AwsCredentialsProviderBase(NativeResource): ...
 class AwsCredentialsProvider(AwsCredentialsProviderBase):
     def __init__(self, binding: Any) -> None: ...
     @classmethod
-    def new_default_chain(
-        cls: Type[_R], client_bootstrap: Optional[ClientBootstrap] = ...
-    ) -> _R: ...
+    def new_default_chain(cls: type[_R], client_bootstrap: ClientBootstrap | None = ...) -> _R: ...
     @classmethod
     def new_static(
-        cls: Type[_R],
+        cls: type[_R],
         access_key_id: str,
         secret_access_key: str,
-        session_token: Optional[str] = ...,
+        session_token: str | None = ...,
     ) -> _R: ...
     @classmethod
     def new_profile(
-        cls: Type[_R],
-        client_bootstrap: Optional[ClientBootstrap] = ...,
-        profile_name: Optional[str] = ...,
-        config_filepath: Optional[str] = ...,
-        credentials_filepath: Optional[str] = ...,
+        cls: type[_R],
+        client_bootstrap: ClientBootstrap | None = ...,
+        profile_name: str | None = ...,
+        config_filepath: str | None = ...,
+        credentials_filepath: str | None = ...,
     ) -> _R: ...
     @classmethod
-    def new_process(cls: Type[_R], profile_to_use: Optional[str] = ...) -> _R: ...
+    def new_process(cls: type[_R], profile_to_use: str | None = ...) -> _R: ...
     @classmethod
-    def new_environment(cls: Type[_R]) -> _R: ...
+    def new_environment(cls: type[_R]) -> _R: ...
     @classmethod
-    def new_chain(cls: Type[_R], providers: List[AwsCredentialsProvider]) -> _R: ...
+    def new_chain(cls: type[_R], providers: list[AwsCredentialsProvider]) -> _R: ...
     @classmethod
-    def new_delegate(cls: Type[_R], get_credentials: Callable[[], AwsCredentials]) -> _R: ...
+    def new_delegate(cls: type[_R], get_credentials: Callable[[], AwsCredentials]) -> _R: ...
     @classmethod
     def new_cognito(
-        cls: Type[_R],
+        cls: type[_R],
         *,
         endpoint: str,
         identity: str,
         tls_ctx: ClientTlsContext,
-        logins: Optional[Sequence[Tuple[str, str]]] = ...,
-        custom_role_arn: Optional[str] = ...,
-        client_bootstrap: Optional[ClientBootstrap] = ...,
-        http_proxy_options: Optional[HttpProxyOptions] = ...,
+        logins: Sequence[tuple[str, str]] | None = ...,
+        custom_role_arn: str | None = ...,
+        client_bootstrap: ClientBootstrap | None = ...,
+        http_proxy_options: HttpProxyOptions | None = ...,
     ) -> _R: ...
     @classmethod
     def new_x509(
-        cls: Type[_R],
+        cls: type[_R],
         *,
         endpoint: str,
         thing_name: str,
         role_alias: str,
         tls_ctx: ClientTlsContext,
-        client_bootstrap: Optional[ClientBootstrap] = ...,
-        http_proxy_options: Optional[HttpProxyOptions] = ...,
+        client_bootstrap: ClientBootstrap | None = ...,
+        http_proxy_options: HttpProxyOptions | None = ...,
     ) -> _R: ...
     def get_credentials(self) -> Future[AwsCredentials]: ...
 
@@ -109,16 +111,16 @@ class AwsSigningConfig(NativeResource):
         self,
         algorithm: AwsSigningAlgorithm = ...,
         signature_type: AwsSignatureType = ...,
-        credentials_provider: Optional[AwsCredentialsProvider] = ...,
+        credentials_provider: AwsCredentialsProvider | None = ...,
         region: str = ...,
         service: str = ...,
-        date: Optional[datetime] = ...,
-        should_sign_header: Optional[Callable[[str], bool]] = ...,
+        date: datetime | None = ...,
+        should_sign_header: Callable[[str], bool] | None = ...,
         use_double_uri_encode: bool = ...,
         should_normalize_uri_path: bool = ...,
-        signed_body_value: Optional[str] = ...,
+        signed_body_value: str | None = ...,
         signed_body_header_type: AwsSignedBodyHeaderType = ...,
-        expiration_in_seconds: Optional[int] = ...,
+        expiration_in_seconds: int | None = ...,
         omit_session_token: bool = ...,
     ) -> None: ...
     def replace(self: _R, **kwargs: Any) -> _R: ...
@@ -135,17 +137,17 @@ class AwsSigningConfig(NativeResource):
     @property
     def date(self) -> datetime: ...
     @property
-    def should_sign_header(self) -> Optional[Callable[[str], bool]]: ...
+    def should_sign_header(self) -> Callable[[str], bool] | None: ...
     @property
     def use_double_uri_encode(self) -> bool: ...
     @property
     def should_normalize_uri_path(self) -> bool: ...
     @property
-    def signed_body_value(self) -> Optional[str]: ...
+    def signed_body_value(self) -> str | None: ...
     @property
     def signed_body_header_type(self) -> AwsSignedBodyHeaderType: ...
     @property
-    def expiration_in_seconds(self) -> Optional[int]: ...
+    def expiration_in_seconds(self) -> int | None: ...
     @property
     def omit_session_token(self) -> bool: ...
 

@@ -1,6 +1,10 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 from concurrent.futures import Future
 from enum import IntEnum
-from typing import IO, Any, Callable, Iterator, List, Optional, Tuple, Type, TypeVar
+from typing import IO, Any, Callable, Iterator, TypeVar
 
 from awscrt import NativeResource as NativeResource
 from awscrt.io import ClientBootstrap as ClientBootstrap
@@ -28,13 +32,13 @@ class HttpConnectionBase(NativeResource):
 class HttpClientConnection(HttpConnectionBase):
     @classmethod
     def new(
-        cls: Type[_R],
+        cls: type[_R],
         host_name: str,
         port: int,
-        bootstrap: Optional[ClientBootstrap] = ...,
-        socket_options: Optional[SocketOptions] = ...,
-        tls_connection_options: Optional[TlsConnectionOptions] = ...,
-        proxy_options: Optional[HttpProxyOptions] = ...,
+        bootstrap: ClientBootstrap | None = ...,
+        socket_options: SocketOptions | None = ...,
+        tls_connection_options: TlsConnectionOptions | None = ...,
+        proxy_options: HttpProxyOptions | None = ...,
     ) -> Future[_R]: ...
     @property
     def host_name(self) -> str: ...
@@ -43,15 +47,15 @@ class HttpClientConnection(HttpConnectionBase):
     def request(
         self,
         request: HttpRequest,
-        on_response: Optional[Callable[[HttpClientStream, int, List[Tuple[str, str]]], None]] = ...,
-        on_body: Optional[Callable[[HttpClientStream, bytes], None]] = ...,
+        on_response: Callable[[HttpClientStream, int, list[tuple[str, str]]], None] | None = ...,
+        on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
     ) -> HttpClientStream: ...
 
 class HttpStreamBase(NativeResource):
     def __init__(
         self,
         connection: HttpClientConnection,
-        on_body: Optional[Callable[[HttpClientStream, bytes], None]] = ...,
+        on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
     ) -> None: ...
     @property
     def connection(self) -> HttpClientConnection: ...
@@ -63,8 +67,8 @@ class HttpClientStream(HttpStreamBase):
         self,
         connection: HttpClientConnection,
         request: HttpRequest,
-        on_response: Optional[Callable[[HttpClientStream, int, List[Tuple[str, str]]], None]] = ...,
-        on_body: Optional[Callable[[HttpClientStream, bytes], None]] = ...,
+        on_response: Callable[[HttpClientStream, int, list[tuple[str, str]]], None] | None = ...,
+        on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
     ) -> None: ...
     @property
     def response_status_code(self) -> int: ...
@@ -72,12 +76,12 @@ class HttpClientStream(HttpStreamBase):
 
 class HttpMessageBase(NativeResource):
     def __init__(
-        self, binding: Any, headers: HttpHeaders, body_stream: Optional[IO[Any]] = ...
+        self, binding: Any, headers: HttpHeaders, body_stream: IO[Any] | None = ...
     ) -> None: ...
     @property
     def headers(self) -> HttpHeaders: ...
     @property
-    def body_stream(self) -> Optional[IO[Any]]: ...
+    def body_stream(self) -> IO[Any] | None: ...
     @body_stream.setter
     def body_stream(self, stream: IO[Any]) -> None: ...
 
@@ -86,8 +90,8 @@ class HttpRequest(HttpMessageBase):
         self,
         method: str = ...,
         path: str = ...,
-        headers: Optional[HttpHeaders] = ...,
-        body_stream: Optional[IO[Any]] = ...,
+        headers: HttpHeaders | None = ...,
+        body_stream: IO[Any] | None = ...,
     ) -> None: ...
     @property
     def method(self) -> str: ...
@@ -99,16 +103,16 @@ class HttpRequest(HttpMessageBase):
     def path(self, path: str) -> None: ...
 
 class HttpHeaders(NativeResource):
-    def __init__(self, name_value_pairs: Optional[List[Tuple[str, str]]] = ...) -> None: ...
+    def __init__(self, name_value_pairs: list[tuple[str, str]] | None = ...) -> None: ...
     def add(self, name: str, value: str) -> None: ...
-    def add_pairs(self, name_value_pairs: List[Tuple[str, str]]) -> None: ...
+    def add_pairs(self, name_value_pairs: list[tuple[str, str]]) -> None: ...
     def set(self, name: str, value: str) -> None: ...
-    def get_values(self, name: str) -> Iterator[Tuple[str, str]]: ...
-    def get(self, name: str, default: Optional[str] = ...) -> Optional[str]: ...
+    def get_values(self, name: str) -> Iterator[tuple[str, str]]: ...
+    def get(self, name: str, default: str | None = ...) -> str | None: ...
     def remove(self, name: str) -> None: ...
     def remove_value(self, name: str, value: str) -> None: ...
     def clear(self) -> None: ...
-    def __iter__(self) -> Iterator[Tuple[str, str]]: ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
 
 class HttpProxyConnectionType(IntEnum):
     Legacy: int
@@ -124,16 +128,16 @@ class HttpProxyOptions:
         self,
         host_name: str,
         port: int,
-        tls_connection_options: Optional[TlsConnectionOptions] = ...,
+        tls_connection_options: TlsConnectionOptions | None = ...,
         auth_type: HttpProxyAuthenticationType = ...,
-        auth_username: Optional[str] = ...,
-        auth_password: Optional[str] = ...,
-        connection_type: Optional[HttpProxyConnectionType] = ...,
+        auth_username: str | None = ...,
+        auth_password: str | None = ...,
+        connection_type: HttpProxyConnectionType | None = ...,
     ) -> None:
         self.host_name: str
         self.port: int
-        self.tls_connection_options: Optional[TlsConnectionOptions]
+        self.tls_connection_options: TlsConnectionOptions | None
         self.auth_type: HttpProxyAuthenticationType
-        self.auth_username: Optional[str]
-        self.auth_password: Optional[str]
+        self.auth_username: str | None
+        self.auth_password: str | None
         self.connection_type: HttpProxyConnectionType

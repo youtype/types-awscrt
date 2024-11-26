@@ -1,5 +1,9 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 from enum import IntEnum
-from typing import Any, Union
+from typing import Any
 
 from awscrt import NativeResource
 
@@ -35,36 +39,36 @@ class RSA(NativeResource):
     def __init__(self, binding: Any) -> None: ...
     @staticmethod
     def new_private_key_from_pem_data(
-        pem_data: Union[str, bytes, bytearray, memoryview],
-    ) -> "RSA": ...
+        pem_data: str | bytes | bytearray | memoryview,
+    ) -> RSA: ...
     @staticmethod
     def new_public_key_from_pem_data(
-        pem_data: Union[str, bytes, bytearray, memoryview],
-    ) -> "RSA": ...
+        pem_data: str | bytes | bytearray | memoryview,
+    ) -> RSA: ...
     @staticmethod
     def new_private_key_from_der_data(
-        der_data: Union[str, bytes, bytearray, memoryview],
-    ) -> "RSA": ...
+        der_data: str | bytes | bytearray | memoryview,
+    ) -> RSA: ...
     @staticmethod
-    def new_public_key_from_der_data(der_data: Union[bytes, bytearray, memoryview]) -> "RSA": ...
+    def new_public_key_from_der_data(der_data: bytes | bytearray | memoryview) -> RSA: ...
     def encrypt(
         self,
         encryption_algorithm: RSAEncryptionAlgorithm,
-        plaintext: Union[bytes, bytearray, memoryview],
+        plaintext: bytes | bytearray | memoryview,
     ) -> bytes: ...
     def decrypt(
         self,
         encryption_algorithm: RSAEncryptionAlgorithm,
-        ciphertext: Union[bytes, bytearray, memoryview],
+        ciphertext: bytes | bytearray | memoryview,
     ) -> bytes: ...
     def sign(
         self,
         signature_algorithm: RSASignatureAlgorithm,
-        digest: Union[bytes, bytearray, memoryview],
+        digest: bytes | bytearray | memoryview,
     ) -> bytes: ...
     def verify(
         self,
         signature_algorithm: RSASignatureAlgorithm,
-        digest: Union[bytes, bytearray, memoryview],
-        signature: Union[bytes, bytearray, memoryview],
+        digest: bytes | bytearray | memoryview,
+        signature: bytes | bytearray | memoryview,
     ) -> bool: ...

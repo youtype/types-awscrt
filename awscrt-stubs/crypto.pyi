@@ -28,6 +28,7 @@ class RSAEncryptionAlgorithm(IntEnum):
 
 class RSASignatureAlgorithm(IntEnum):
     PKCS1_5_SHA256: int
+    PKCS1_5_SHA1: int
     PSS_SHA256: int
 
 class RSA(NativeResource):
@@ -40,6 +41,12 @@ class RSA(NativeResource):
     def new_public_key_from_pem_data(
         pem_data: Union[str, bytes, bytearray, memoryview],
     ) -> "RSA": ...
+    @staticmethod
+    def new_private_key_from_der_data(
+        der_data: Union[str, bytes, bytearray, memoryview],
+    ) -> "RSA": ...
+    @staticmethod
+    def new_public_key_from_der_data(der_data: Union[bytes, bytearray, memoryview]) -> "RSA": ...
     def encrypt(
         self,
         encryption_algorithm: RSAEncryptionAlgorithm,

@@ -1,7 +1,11 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 from concurrent.futures import Future
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Callable, Dict, Optional, Tuple, Union
+from typing import Any, Callable
 
 from awscrt import NativeResource as NativeResource
 from awscrt.exceptions import AwsCrtError
@@ -36,21 +40,21 @@ class Will:
 
 @dataclass
 class OnConnectionSuccessData:
-    return_code: Optional[ConnectReturnCode] = ...
+    return_code: ConnectReturnCode | None = ...
     session_present: bool = ...
 
 @dataclass
 class OnConnectionFailureData:
-    error: Optional[AwsCrtError] = ...
+    error: AwsCrtError | None = ...
 
 @dataclass
 class OnConnectionClosedData: ...
 
 class Client(NativeResource):
     def __init__(
-        self, bootstrap: Optional[ClientBootstrap] = ..., tls_ctx: Optional[ClientTlsContext] = ...
+        self, bootstrap: ClientBootstrap | None = ..., tls_ctx: ClientTlsContext | None = ...
     ) -> None:
-        self.tls_ctx: ClientTlsContext
+        self.tls_ctx: ClientTlsContext | None = ...
 
 @dataclass
 class OperationStatisticsData:
@@ -67,28 +71,25 @@ class Connection(NativeResource):
         port: int,
         client_id: str,
         clean_session: bool = ...,
-        on_connection_interrupted: Optional[Callable[[Connection, AwsCrtError], None]] = ...,
-        on_connection_resumed: Optional[
-            Callable[[Connection, ConnectReturnCode, bool], None]
-        ] = ...,
+        on_connection_interrupted: Callable[[Connection, AwsCrtError], None] | None = ...,
+        on_connection_resumed: Callable[[Connection, ConnectReturnCode, bool], None] | None = ...,
         reconnect_min_timeout_secs: int = ...,
         reconnect_max_timeout_secs: int = ...,
         keep_alive_secs: int = ...,
         ping_timeout_ms: int = ...,
         protocol_operation_timeout_ms: int = ...,
-        will: Optional[Will] = ...,
-        username: Optional[str] = ...,
-        password: Optional[str] = ...,
-        socket_options: Optional[SocketOptions] = ...,
+        will: Will | None = ...,
+        username: str | None = ...,
+        password: str | None = ...,
+        socket_options: SocketOptions | None = ...,
         use_websockets: bool = ...,
-        websocket_proxy_options: Optional[HttpProxyOptions] = ...,
-        websocket_handshake_transform: Optional[
-            Callable[[WebsocketHandshakeTransformArgs], None]
-        ] = ...,
-        proxy_options: Optional[HttpProxyOptions] = ...,
-        on_connection_success: Optional[Callable[[Connection], OnConnectionSuccessData]] = ...,
-        on_connection_failure: Optional[Callable[[Connection], OnConnectionFailureData]] = ...,
-        on_connection_closed: Optional[Callable[[Connection], OnConnectionClosedData]] = ...,
+        websocket_proxy_options: HttpProxyOptions | None = ...,
+        websocket_handshake_transform: Callable[[WebsocketHandshakeTransformArgs], None]
+        | None = ...,
+        proxy_options: HttpProxyOptions | None = ...,
+        on_connection_success: Callable[[Connection], OnConnectionSuccessData] | None = ...,
+        on_connection_failure: Callable[[Connection], OnConnectionFailureData] | None = ...,
+        on_connection_closed: Callable[[Connection], OnConnectionClosedData] | None = ...,
     ) -> None:
         self.client: Client
         self.client_id: str
@@ -103,24 +104,24 @@ class Connection(NativeResource):
         self.will: Will
         self.username: str
         self.password: str
-        self.socket_options: Optional[SocketOptions]
-        self.proxy_options: Optional[HttpProxyOptions]
+        self.socket_options: SocketOptions | None
+        self.proxy_options: HttpProxyOptions | None
 
-    def connect(self) -> Future[Optional[BaseException]]: ...
-    def reconnect(self) -> Future[Optional[BaseException]]: ...
-    def disconnect(self) -> Future[Optional[BaseException]]: ...
+    def connect(self) -> Future[BaseException | None]: ...
+    def reconnect(self) -> Future[BaseException | None]: ...
+    def disconnect(self) -> Future[BaseException | None]: ...
     def subscribe(
         self,
         topic: str,
         qos: QoS,
-        callback: Optional[Callable[[str, bytes, bool, QoS, bool], None]] = ...,
-    ) -> Tuple[Future[Optional[Dict[str, Any]]], int]: ...
+        callback: Callable[[str, bytes, bool, QoS, bool], None] | None = ...,
+    ) -> tuple[Future[dict[str, Any] | None], int]: ...
     def on_message(self, callback: Callable[[str, bytes, bool, QoS, bool], None]) -> None: ...
-    def unsubscribe(self, topic: str) -> Tuple[Future[Optional[Dict[str, Any]]], int]: ...
-    def resubscribe_existing_topics(self) -> Tuple[Future[Optional[Dict[str, Any]]], int]: ...
+    def unsubscribe(self, topic: str) -> tuple[Future[dict[str, Any] | None], int]: ...
+    def resubscribe_existing_topics(self) -> tuple[Future[dict[str, Any] | None], int]: ...
     def publish(
-        self, topic: str, payload: Union[str, bytes, bytearray], qos: QoS, retain: bool = ...
-    ) -> Tuple[Future[Optional[Dict[str, Any]]], int]: ...
+        self, topic: str, payload: str | bytes | bytearray, qos: QoS, retain: bool = ...
+    ) -> tuple[Future[dict[str, Any] | None], int]: ...
     def get_stats(self) -> OperationStatisticsData: ...
 
 class WebsocketHandshakeTransformArgs:
@@ -128,11 +129,11 @@ class WebsocketHandshakeTransformArgs:
         self,
         mqtt_connection: Connection,
         http_request: HttpRequest,
-        done_future: Future[Optional[BaseException]],
+        done_future: Future[BaseException | None],
     ) -> None:
         self.mqtt_connection: Connection
         self.http_request: HttpRequest
 
-    def set_done(self, exception: Optional[BaseException] = ...) -> None: ...
+    def set_done(self, exception: BaseException | None = ...) -> None: ...
 
 class SubscribeError(Exception): ...

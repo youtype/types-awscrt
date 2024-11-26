@@ -1,3 +1,7 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 from awscrt import NativeResource as NativeResource
 from awscrt.io import ClientBootstrap as ClientBootstrap
 from awscrt.io import DefaultHostResolver as DefaultHostResolver

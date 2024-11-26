@@ -1,8 +1,12 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 import abc
 from abc import ABC, abstractmethod
 from concurrent.futures import Future
 from enum import IntEnum
-from typing import Any, Callable, Optional, Sequence
+from typing import Any, Callable, Sequence
 
 from awscrt import NativeResource
 from awscrt.eventstream import Header
@@ -30,12 +34,12 @@ class ClientConnectionHandler(ABC, metaclass=abc.ABCMeta):
     @abstractmethod
     def on_connection_setup(
         self,
-        connection: Optional[HttpClientConnection],
-        error: Optional[BaseException],
+        connection: HttpClientConnection | None,
+        error: BaseException | None,
         **kwargs: Any,
     ) -> None: ...
     @abstractmethod
-    def on_connection_shutdown(self, reason: Optional[BaseException], **kwargs: Any) -> None: ...
+    def on_connection_shutdown(self, reason: BaseException | None, **kwargs: Any) -> None: ...
     @abstractmethod
     def on_protocol_message(
         self,
@@ -59,47 +63,47 @@ class ClientConnection(NativeResource):
         handler: ClientConnectionHandler,
         host_name: str,
         port: int,
-        bootstrap: Optional[ClientBootstrap] = ...,
-        socket_options: Optional[SocketOptions] = ...,
-        tls_connection_options: Optional[TlsConnectionOptions] = ...,
-    ) -> Future[Optional[BaseException]]: ...
-    def close(self) -> Future[Optional[BaseException]]: ...
+        bootstrap: ClientBootstrap | None = ...,
+        socket_options: SocketOptions | None = ...,
+        tls_connection_options: TlsConnectionOptions | None = ...,
+    ) -> Future[BaseException | None]: ...
+    def close(self) -> Future[BaseException | None]: ...
     def is_open(self) -> bool: ...
     def send_protocol_message(
         self,
         *,
-        headers: Optional[Sequence[Header]] = ...,
-        payload: Optional[bytes] = ...,
+        headers: Sequence[Header] | None = ...,
+        payload: bytes | None = ...,
         message_type: MessageType,
-        flags: Optional[int] = ...,
-        on_flush: Optional[Callable[..., Any]] = ...,
-    ) -> Future[Optional[BaseException]]: ...
+        flags: int | None = ...,
+        on_flush: Callable[..., Any] | None = ...,
+    ) -> Future[BaseException | None]: ...
     def new_stream(self, handler: ClientContinuationHandler) -> ClientContinuation: ...
 
 class ClientContinuation(NativeResource):
     def __init__(self, handler: ClientConnectionHandler, connection: ClientConnection) -> None:
         self.connection: ClientConnection
-        closed_future: Future[None]
+        self.closed_future: Future[None]
 
     def activate(
         self,
         *,
         operation: str,
-        headers: Optional[Sequence[Header]] = ...,
-        payload: Optional[bytes] = ...,
+        headers: Sequence[Header] | None = ...,
+        payload: bytes | None = ...,
         message_type: MessageType,
-        flags: Optional[int] = ...,
-        on_flush: Optional[Callable[..., Any]] = ...,
-    ) -> Future[Optional[BaseException]]: ...
+        flags: int | None = ...,
+        on_flush: Callable[..., Any] | None = ...,
+    ) -> Future[BaseException | None]: ...
     def send_message(
         self,
         *,
-        headers: Optional[Sequence[Header]] = ...,
-        payload: Optional[bytes] = ...,
+        headers: Sequence[Header] | None = ...,
+        payload: bytes | None = ...,
         message_type: MessageType,
-        flags: Optional[int] = ...,
-        on_flush: Optional[Callable[..., Any]] = ...,
-    ) -> Future[Optional[BaseException]]: ...
+        flags: int | None = ...,
+        on_flush: Callable[..., Any] | None = ...,
+    ) -> Future[BaseException | None]: ...
     def is_closed(self) -> bool: ...
 
 class ClientContinuationHandler(ABC, metaclass=abc.ABCMeta):

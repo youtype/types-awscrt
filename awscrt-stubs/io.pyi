@@ -1,6 +1,10 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 from enum import IntEnum
 from threading import Event
-from typing import IO, Any, List, Optional, Type, TypeVar, Union
+from typing import IO, Any, TypeVar
 
 from awscrt import NativeResource as NativeResource
 
@@ -19,9 +23,7 @@ def init_logging(log_level: int, file_name: str) -> None: ...
 
 class EventLoopGroup(NativeResource):
     shutdown_event: Event
-    def __init__(
-        self, num_threads: Optional[int] = ..., cpu_group: Optional[int] = ...
-    ) -> None: ...
+    def __init__(self, num_threads: int | None = ..., cpu_group: int | None = ...) -> None: ...
     @staticmethod
     def get_or_create_static_default() -> EventLoopGroup: ...
     @staticmethod
@@ -79,7 +81,7 @@ class TlsCipherPref(IntEnum):
     def is_supported(self) -> bool: ...
 
 class TlsContextOptions:
-    alpn_list: List[str]
+    alpn_list: list[str]
     certificate_buffer: bytes
     pkcs12_filepath: str
     pkcs12_password: str
@@ -102,11 +104,11 @@ class TlsContextOptions:
         *,
         pkcs11_lib: Pkcs11Lib,
         user_pin: str,
-        slot_id: Optional[int] = ...,
-        token_label: Optional[str] = ...,
-        private_key_label: Optional[str] = ...,
-        cert_file_path: Optional[str] = ...,
-        cert_file_contents: Optional[Union[str, bytes, bytearray]] = ...,
+        slot_id: int | None = ...,
+        token_label: str | None = ...,
+        private_key_label: str | None = ...,
+        cert_file_path: str | None = ...,
+        cert_file_contents: str | bytes | bytearray | None = ...,
     ) -> TlsContextOptions: ...
     @staticmethod
     def create_client_with_mtls_pkcs12(
@@ -121,7 +123,7 @@ class TlsContextOptions:
     @staticmethod
     def create_server_pkcs12(pkcs12_filepath: str, pkcs12_password: str) -> TlsContextOptions: ...
     def override_default_trust_store_from_path(
-        self, ca_dirpath: Optional[str] = ..., ca_filepath: Optional[str] = ...
+        self, ca_dirpath: str | None = ..., ca_filepath: str | None = ...
     ) -> None: ...
     def override_default_trust_store(self, rootca_buffer: bytes) -> None: ...
 
@@ -132,7 +134,7 @@ class ClientTlsContext(NativeResource):
 class TlsConnectionOptions(NativeResource):
     tls_ctx: ClientTlsContext
     def __init__(self, tls_ctx: ClientTlsContext) -> None: ...
-    def set_alpn_list(self, alpn_list: List[str]) -> None: ...
+    def set_alpn_list(self, alpn_list: list[str]) -> None: ...
     def set_server_name(self, server_name: str) -> None: ...
 
 def is_alpn_available() -> bool: ...
@@ -140,7 +142,7 @@ def is_alpn_available() -> bool: ...
 class InputStream(NativeResource):
     def __init__(self, stream: IO[Any]) -> None: ...
     @classmethod
-    def wrap(cls: Type[_R], stream: IO[Any], allow_none: bool = ...) -> _R: ...
+    def wrap(cls: type[_R], stream: IO[Any], allow_none: bool = ...) -> _R: ...
 
 class Pkcs11Lib(NativeResource):
     class InitializeFinalizeBehavior(IntEnum):
@@ -148,6 +150,4 @@ class Pkcs11Lib(NativeResource):
         OMIT: int
         STRICT: int
 
-    def __init__(
-        self, *, file: str, behavior: Optional[InitializeFinalizeBehavior] = ...
-    ) -> None: ...
+    def __init__(self, *, file: str, behavior: InitializeFinalizeBehavior | None = ...) -> None: ...

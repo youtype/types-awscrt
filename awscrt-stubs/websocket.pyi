@@ -1,6 +1,10 @@
+"""
+Copyright 2024 Vlad Emelianov
+"""
+
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Callable, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Sequence
 
 from awscrt import NativeResource as NativeResource
 from awscrt.http import HttpProxyOptions as HttpProxyOptions
@@ -22,15 +26,15 @@ MAX_PAYLOAD_LENGTH: int
 
 @dataclass
 class OnConnectionSetupData:
-    exception: Optional[Exception] = ...
-    websocket: Optional["WebSocket"] = ...
-    handshake_response_status: Optional[int] = ...
-    handshake_response_headers: Optional[Sequence[Tuple[str, str]]] = ...
-    handshake_response_body: Optional[bytes] = ...
+    exception: Exception | None = ...
+    websocket: WebSocket | None = ...
+    handshake_response_status: int | None = ...
+    handshake_response_headers: Sequence[tuple[str, str]] | None = ...
+    handshake_response_body: bytes | None = ...
 
 @dataclass
 class OnConnectionShutdownData:
-    exception: Optional[Exception] = ...
+    exception: Exception | None = ...
 
 @dataclass
 class IncomingFrame:
@@ -51,11 +55,11 @@ class OnIncomingFramePayloadData:
 @dataclass
 class OnIncomingFrameCompleteData:
     frame: IncomingFrame
-    exception: Optional[Exception] = ...
+    exception: Exception | None = ...
 
 @dataclass
 class OnSendFrameCompleteData:
-    exception: Optional[Exception] = ...
+    exception: Exception | None = ...
 
 class WebSocket(NativeResource):
     def __init__(self, binding: Any) -> None: ...
@@ -63,10 +67,10 @@ class WebSocket(NativeResource):
     def send_frame(
         self,
         opcode: Opcode,
-        payload: Optional[Union[str, bytes, bytearray, memoryview]] = ...,
+        payload: str | bytes | bytearray | memoryview | None = ...,
         *,
         fin: bool = ...,
-        on_complete: Optional[Callable[[OnSendFrameCompleteData], None]] = ...,
+        on_complete: Callable[[OnSendFrameCompleteData], None] | None = ...,
     ) -> None: ...
     def increment_read_window(self, size: int) -> None: ...
 
@@ -74,27 +78,27 @@ class _WebSocketCore(NativeResource):
     def __init__(
         self,
         on_connection_setup: Callable[[OnConnectionSetupData], None],
-        on_connection_shutdown: Optional[Callable[[OnConnectionShutdownData], None]],
-        on_incoming_frame_begin: Optional[Callable[[OnIncomingFrameBeginData], None]],
-        on_incoming_frame_payload: Optional[Callable[[OnIncomingFramePayloadData], None]],
-        on_incoming_frame_complete: Optional[Callable[[OnIncomingFrameCompleteData], None]],
+        on_connection_shutdown: Callable[[OnConnectionShutdownData], None] | None,
+        on_incoming_frame_begin: Callable[[OnIncomingFrameBeginData], None] | None,
+        on_incoming_frame_payload: Callable[[OnIncomingFramePayloadData], None] | None,
+        on_incoming_frame_complete: Callable[[OnIncomingFrameCompleteData], None] | None,
     ) -> None: ...
 
 def connect(
     *,
     host: str,
-    port: Optional[int] = ...,
+    port: int | None = ...,
     handshake_request: HttpRequest,
-    bootstrap: Optional[ClientBootstrap] = ...,
-    socket_options: Optional[SocketOptions] = ...,
-    tls_connection_options: Optional[TlsConnectionOptions] = ...,
-    proxy_options: Optional[HttpProxyOptions] = ...,
+    bootstrap: ClientBootstrap | None = ...,
+    socket_options: SocketOptions | None = ...,
+    tls_connection_options: TlsConnectionOptions | None = ...,
+    proxy_options: HttpProxyOptions | None = ...,
     manage_read_window: bool = ...,
-    initial_read_window: Optional[int] = ...,
+    initial_read_window: int | None = ...,
     on_connection_setup: Callable[[OnConnectionSetupData], None],
-    on_connection_shutdown: Optional[Callable[[OnConnectionShutdownData], None]] = ...,
-    on_incoming_frame_begin: Optional[Callable[[OnIncomingFrameBeginData], None]] = ...,
-    on_incoming_frame_payload: Optional[Callable[[OnIncomingFramePayloadData], None]] = ...,
-    on_incoming_frame_complete: Optional[Callable[[OnIncomingFrameCompleteData], None]] = ...,
+    on_connection_shutdown: Callable[[OnConnectionShutdownData], None] | None = ...,
+    on_incoming_frame_begin: Callable[[OnIncomingFrameBeginData], None] | None = ...,
+    on_incoming_frame_payload: Callable[[OnIncomingFramePayloadData], None] | None = ...,
+    on_incoming_frame_complete: Callable[[OnIncomingFrameCompleteData], None] | None = ...,
 ) -> None: ...
 def create_handshake_request(*, host: str, path: str = ...) -> HttpRequest: ...

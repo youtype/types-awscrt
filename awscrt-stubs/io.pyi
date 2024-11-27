@@ -1,4 +1,6 @@
 """
+Type annotations for awscrt.io module.
+
 Copyright 2024 Vlad Emelianov
 """
 

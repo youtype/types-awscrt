@@ -1,4 +1,6 @@
 """
+Type annotations for awscrt.mqtt module.
+
 Copyright 2024 Vlad Emelianov
 """
 

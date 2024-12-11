@@ -27,9 +27,12 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+
+[dependency-groups]
+dev = ["setuptools", "awscrt", "mypy", "pyright", "istub"]
+
 [tool.uv]
 config-settings = { editable-mode = "strict" }
-dev-dependencies = ["setuptools", "awscrt", "mypy", "pyright", "istub"]
 
 [project.urls]
 Homepage = "https://github.com/youtype/types-awscrt"
@@ -44,7 +47,7 @@ requires = ['setuptools']
 build-backend = 'setuptools.build_meta'
 
 [tool.setuptools]
-packages = ["awscrt-stubs", "awscrt-stubs.eventstream"]
+packages = ["awscrt-stubs"]
 
 [tool.pyright]
 include = ["awscrt-stubs"]

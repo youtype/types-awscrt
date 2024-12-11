@@ -45,6 +45,7 @@ class S3ChecksumAlgorithm(IntEnum):
     CRC32: int
     SHA1: int
     SHA256: int
+    CRC64NVME: int
 
 class S3ChecksumLocation(IntEnum):
     HEADER: int

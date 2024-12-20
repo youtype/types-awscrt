@@ -17,10 +17,10 @@ from awscrt.io import TlsConnectionOptions as TlsConnectionOptions
 _R = TypeVar("_R")
 
 class HttpVersion(IntEnum):
-    Unknown: int
-    Http1_0: int
-    Http1_1: int
-    Http2: int
+    Unknown = 0
+    Http1_0 = 1
+    Http1_1 = 2
+    Http2 = 3
 
 class HttpConnectionBase(NativeResource):
     def __init__(self) -> None: ...
@@ -117,13 +117,13 @@ class HttpHeaders(NativeResource):
     def __iter__(self) -> Iterator[tuple[str, str]]: ...
 
 class HttpProxyConnectionType(IntEnum):
-    Legacy: int
-    Forwarding: int
-    Tunneling: int
+    Legacy = 0
+    Forwarding = 1
+    Tunneling = 2
 
 class HttpProxyAuthenticationType(IntEnum):
-    Nothing: int
-    Basic: int
+    Nothing = 0
+    Basic = 1
 
 class HttpProxyOptions:
     def __init__(

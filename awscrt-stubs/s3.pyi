@@ -32,24 +32,24 @@ class CrossProcessLock(NativeResource):
     ) -> None: ...
 
 class S3RequestType(IntEnum):
-    DEFAULT: int
-    GET_OBJECT: int
-    PUT_OBJECT: int
+    DEFAULT = 0
+    GET_OBJECT = 1
+    PUT_OBJECT = 2
 
 class S3RequestTlsMode(IntEnum):
-    ENABLED: int
-    DISABLED: int
+    ENABLED = 0
+    DISABLED = 1
 
 class S3ChecksumAlgorithm(IntEnum):
-    CRC32C: int
-    CRC32: int
-    SHA1: int
-    SHA256: int
-    CRC64NVME: int
+    CRC32C = 1
+    CRC32 = 2
+    SHA1 = 3
+    SHA256 = 4
+    CRC64NVME = 5
 
 class S3ChecksumLocation(IntEnum):
-    HEADER: int
-    TRAILER: int
+    HEADER = 1
+    TRAILER = 2
 
 @dataclass
 class S3ChecksumConfig:

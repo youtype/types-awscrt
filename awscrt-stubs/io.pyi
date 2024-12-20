@@ -13,13 +13,13 @@ from awscrt import NativeResource as NativeResource
 _R = TypeVar("_R")
 
 class LogLevel(IntEnum):
-    NoLogs: int
-    Fatal: int
-    Error: int
-    Warn: int
-    Info: int
-    Debug: int
-    Trace: int
+    NoLogs = 0
+    Fatal = 1
+    Error = 2
+    Warn = 3
+    Info = 4
+    Debug = 5
+    Trace = 6
 
 def init_logging(log_level: int, file_name: str) -> None: ...
 
@@ -51,13 +51,13 @@ class ClientBootstrap(NativeResource):
     def release_static_default() -> None: ...
 
 class SocketDomain(IntEnum):
-    IPv4: int
-    IPv6: int
-    Local: int
+    IPv4 = 0
+    IPv6 = 1
+    Local = 2
 
 class SocketType(IntEnum):
-    Stream: int
-    DGram: int
+    Stream = 0
+    DGram = 1
 
 class SocketOptions:
     domain: SocketDomain
@@ -70,16 +70,16 @@ class SocketOptions:
     def __init__(self) -> None: ...
 
 class TlsVersion(IntEnum):
-    SSLv3: int
-    TLSv1: int
-    TLSv1_1: int
-    TLSv1_2: int
-    TLSv1_3: int
-    DEFAULT: int
+    SSLv3 = 0
+    TLSv1 = 1
+    TLSv1_1 = 2
+    TLSv1_2 = 3
+    TLSv1_3 = 4
+    DEFAULT = 128
 
 class TlsCipherPref(IntEnum):
-    DEFAULT: int
-    PQ_TLSv1_0_2021_05: int
+    DEFAULT = 0
+    PQ_TLSv1_0_2021_05 = 6
     def is_supported(self) -> bool: ...
 
 class TlsContextOptions:
@@ -148,8 +148,8 @@ class InputStream(NativeResource):
 
 class Pkcs11Lib(NativeResource):
     class InitializeFinalizeBehavior(IntEnum):
-        DEFAULT: int
-        OMIT: int
-        STRICT: int
+        DEFAULT = 0
+        OMIT = 1
+        STRICT = 2
 
     def __init__(self, *, file: str, behavior: InitializeFinalizeBehavior | None = ...) -> None: ...

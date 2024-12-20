@@ -19,19 +19,19 @@ from awscrt.io import SocketOptions as SocketOptions
 from awscrt.mqtt5 import QoS as Mqtt5QoS
 
 class QoS(IntEnum):
-    AT_MOST_ONCE: int
-    AT_LEAST_ONCE: int
-    EXACTLY_ONCE: int
+    AT_MOST_ONCE = 0
+    AT_LEAST_ONCE = 1
+    EXACTLY_ONCE = 2
 
     def to_mqtt5(self) -> Mqtt5QoS: ...
 
 class ConnectReturnCode(IntEnum):
-    ACCEPTED: int
-    UNACCEPTABLE_PROTOCOL_VERSION: int
-    IDENTIFIER_REJECTED: int
-    SERVER_UNAVAILABLE: int
-    BAD_USERNAME_OR_PASSWORD: int
-    NOT_AUTHORIZED: int
+    ACCEPTED = 0
+    UNACCEPTABLE_PROTOCOL_VERSION = 1
+    IDENTIFIER_REJECTED = 2
+    SERVER_UNAVAILABLE = 3
+    BAD_USERNAME_OR_PASSWORD = 4
+    NOT_AUTHORIZED = 5
 
 class Will:
     def __init__(self, topic: str, qos: QoS, payload: bytes, retain: bool) -> None:

@@ -90,13 +90,13 @@ class AwsCredentialsProvider(AwsCredentialsProviderBase):
     def get_credentials(self) -> Future[AwsCredentials]: ...
 
 class AwsSigningAlgorithm(IntEnum):
-    V4: int
-    V4_ASYMMETRIC: int
-    V4_S3EXPRESS: int
+    V4 = 0
+    V4_ASYMMETRIC = 1
+    V4_S3EXPRESS = 2
 
 class AwsSignatureType(IntEnum):
-    HTTP_REQUEST_HEADERS: int
-    HTTP_REQUEST_QUERY_PARAMS: int
+    HTTP_REQUEST_HEADERS = 0
+    HTTP_REQUEST_QUERY_PARAMS = 1
 
 class AwsSignedBodyValue:
     EMPTY_SHA256: str
@@ -105,8 +105,8 @@ class AwsSignedBodyValue:
     STREAMING_AWS4_HMAC_SHA256_EVENTS: str
 
 class AwsSignedBodyHeaderType(IntEnum):
-    NONE: int
-    X_AMZ_CONTENT_SHA_256: int
+    NONE = 0
+    X_AMZ_CONTENT_SHA_256 = 1
 
 class AwsSigningConfig(NativeResource):
     def __init__(

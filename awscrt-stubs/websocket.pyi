@@ -16,12 +16,12 @@ from awscrt.io import SocketOptions as SocketOptions
 from awscrt.io import TlsConnectionOptions as TlsConnectionOptions
 
 class Opcode(IntEnum):
-    CONTINUATION: int
-    TEXT: int
-    BINARY: int
-    CLOSE: int
-    PING: int
-    PONG: int
+    CONTINUATION = 0x0
+    TEXT = 0x1
+    BINARY = 0x2
+    CLOSE = 0x8
+    PING = 0x9
+    PONG = 0xA
     def is_data_frame(self) -> bool: ...
 
 MAX_PAYLOAD_LENGTH: int

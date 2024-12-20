@@ -28,14 +28,14 @@ class HMAC:
     def digest(self, truncate_to: int = ...) -> str: ...
 
 class RSAEncryptionAlgorithm(IntEnum):
-    PKCS1_5: int
-    OAEP_SHA256: int
-    OAEP_SHA512: int
+    PKCS1_5 = 0
+    OAEP_SHA256 = 1
+    OAEP_SHA512 = 2
 
 class RSASignatureAlgorithm(IntEnum):
-    PKCS1_5_SHA256: int
-    PKCS1_5_SHA1: int
-    PSS_SHA256: int
+    PKCS1_5_SHA256 = 0
+    PKCS1_5_SHA1 = 1
+    PSS_SHA256 = 2
 
 class RSA(NativeResource):
     def __init__(self, binding: Any) -> None: ...

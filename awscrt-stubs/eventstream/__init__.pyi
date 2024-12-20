@@ -8,17 +8,19 @@ from enum import IntEnum
 from typing import Any
 from uuid import UUID
 
+__all__ = ["Header", "HeaderType"]
+
 class HeaderType(IntEnum):
-    BOOL_TRUE: int
-    BOOL_FALSE: int
-    BYTE: int
-    INT16: int
-    INT32: int
-    INT64: int
-    BYTE_BUF: int
-    STRING: int
-    TIMESTAMP: int
-    UUID: int
+    BOOL_TRUE = 0
+    BOOL_FALSE = 1
+    BYTE = 2
+    INT16 = 3
+    INT32 = 4
+    INT64 = 5
+    BYTE_BUF = 6
+    STRING = 7
+    TIMESTAMP = 8
+    UUID = 9
     def __format__(self, format_spec: str) -> str: ...
 
 class Header:

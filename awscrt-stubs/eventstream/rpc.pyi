@@ -15,21 +15,30 @@ from awscrt.eventstream import Header
 from awscrt.http import HttpClientConnection
 from awscrt.io import ClientBootstrap, SocketOptions, TlsConnectionOptions
 
+__all__ = [
+    "ClientConnection",
+    "ClientConnectionHandler",
+    "ClientContinuation",
+    "ClientContinuationHandler",
+    "MessageFlag",
+    "MessageType",
+]
+
 class MessageType(IntEnum):
-    APPLICATION_MESSAGE: int
-    APPLICATION_ERROR: int
-    PING: int
-    PING_RESPONSE: int
-    CONNECT: int
-    CONNECT_ACK: int
-    PROTOCOL_ERROR: int
-    INTERNAL_ERROR: int
+    APPLICATION_MESSAGE = 0
+    APPLICATION_ERROR = 1
+    PING = 2
+    PING_RESPONSE = 3
+    CONNECT = 4
+    CONNECT_ACK = 5
+    PROTOCOL_ERROR = 6
+    INTERNAL_ERROR = 7
     def __format__(self, format_spec: str) -> str: ...
 
 class MessageFlag:
-    NONE: int
-    CONNECTION_ACCEPTED: int
-    TERMINATE_STREAM: int
+    NONE: int = ...
+    CONNECTION_ACCEPTED: int = ...
+    TERMINATE_STREAM: int = ...
     def __format__(self, format_spec: str) -> str: ...
 
 class ClientConnectionHandler(ABC, metaclass=abc.ABCMeta):

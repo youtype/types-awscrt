@@ -80,6 +80,7 @@ class TlsVersion(IntEnum):
 class TlsCipherPref(IntEnum):
     DEFAULT = 0
     PQ_TLSv1_0_2021_05 = 6
+    PQ_DEFAULT = 8
     def is_supported(self) -> bool: ...
 
 class TlsContextOptions:

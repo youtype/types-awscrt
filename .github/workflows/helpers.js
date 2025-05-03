@@ -24,7 +24,13 @@ function sortVersions(versions) {
 async function getReleaseVersions(packageName) {
     const response = await fetch(`https://pypi.org/pypi/${packageName}/json`)
     const data = await response.json()
-    return Object.keys(data.releases)
+    const releases = Object.keys(data.releases).map(x => ({key: x, ...data.releases[x]}))
+    return (
+        releases
+            .filter(x => x.yanked !== true)
+            .filter(x => x.key === getStableVersion(x.key))
+            .map(x => x.key)
+    )
 }
 
 async function getLatestVersion(package) {

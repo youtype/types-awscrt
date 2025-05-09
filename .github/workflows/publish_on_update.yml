@@ -78,7 +78,8 @@ jobs:
           git config --global user.name "github-actions"
           git add pyproject.toml
           git commit -m "Release ${STUBS_VERSION}"
-          git push
+          git tag ${STUBS_VERSION}
+          git push --tags
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__

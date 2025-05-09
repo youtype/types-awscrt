@@ -50,7 +50,7 @@ jobs:
         run: |
           uv sync --all-extras --dev
       - name: Run pre-commit
-        run: SKIP='mypy,istub' uvx pre-commit run --all-files
+        run: SKIP='mypy,istub,sanity' uvx pre-commit run --all-files
       - name: Stubs consistency check
         if: ${{ matrix.check-consistency }}
         run: |

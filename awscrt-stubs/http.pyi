@@ -53,6 +53,15 @@ class HttpClientConnection(HttpConnectionBase):
         on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
     ) -> HttpClientStream: ...
 
+class Http2ClientConnection(HttpClientConnection):
+    def request(
+        self,
+        request: HttpRequest,
+        on_response: Callable[[HttpClientStream, int, list[tuple[str, str]]], None] | None = ...,
+        on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
+        manual_write: bool = ...,
+    ) -> Http2ClientStream: ...
+
 class HttpStreamBase(NativeResource):
     def __init__(
         self,
@@ -75,6 +84,19 @@ class HttpClientStream(HttpStreamBase):
     @property
     def response_status_code(self) -> int: ...
     def activate(self) -> None: ...
+    @property
+    def version(self) -> HttpVersion: ...
+
+class Http2ClientStream(HttpClientStream):
+    def __init__(
+        self,
+        connection: HttpClientConnection,
+        request: HttpRequest,
+        on_response: Callable[[HttpClientStream, int, list[tuple[str, str]]], None] | None = ...,
+        on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
+        manual_write: bool = ...,
+    ) -> None: ...
+    def write_data(self, data_stream: IO[Any], end_stream: bool = ...) -> None: ...
 
 class HttpMessageBase(NativeResource):
     def __init__(

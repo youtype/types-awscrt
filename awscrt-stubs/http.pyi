@@ -22,6 +22,24 @@ class HttpVersion(IntEnum):
     Http1_1 = 2
     Http2 = 3
 
+class Http2SettingID(IntEnum):
+    HEADER_TABLE_SIZE = 1
+    ENABLE_PUSH = 2
+    MAX_CONCURRENT_STREAMS = 3
+    INITIAL_WINDOW_SIZE = 4
+    MAX_FRAME_SIZE = 5
+    MAX_HEADER_LIST_SIZE = 6
+
+class Http2Setting:
+    VALID_RANGES: dict[Http2SettingID, tuple[int, int]] = ...
+    def __init__(
+        self,
+        id: Http2SettingID,
+        value: int,
+    ) -> None:
+        self.id: Http2SettingID
+        self.value: int
+
 class HttpConnectionBase(NativeResource):
     def __init__(self) -> None: ...
     @property
@@ -54,6 +72,18 @@ class HttpClientConnection(HttpConnectionBase):
     ) -> HttpClientStream: ...
 
 class Http2ClientConnection(HttpClientConnection):
+    @classmethod
+    def new(  # type: ignore[override]
+        cls,
+        host_name: str,
+        port: int,
+        bootstrap: ClientBootstrap | None = ...,
+        socket_options: SocketOptions | None = ...,
+        tls_connection_options: TlsConnectionOptions | None = ...,
+        proxy_options: HttpProxyOptions | None = ...,
+        initial_settings: list[Http2Setting] | None = ...,
+        on_remote_settings_changed: Callable[[list[Http2Setting]], None] | None = ...,
+    ) -> Future[HttpClientConnection]: ...
     def request(
         self,
         request: HttpRequest,

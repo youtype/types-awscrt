@@ -4,7 +4,8 @@ version = "0.26.1"
 requires-python = ">= 3.8"
 description = "Type annotations and code completion for awscrt"
 authors = [{ name = "Vlad Emelianov", email = "vlad.emelianov.nz@gmail.com" }]
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
 keywords = ["awscrt", "type-annotations", "pyright", "mypy", "boto3"]
 classifiers = [

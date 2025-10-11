@@ -14,3 +14,17 @@ packages:
           ./awscrt-stubs/__init__.pyi)
         Runtime:
         MISSING
+        
+        error: awscrt.aio failed to import. Maybe install the runtime package or alter PYTHONPATH? ModuleNotFoundError: No module named 'awscrt.aio'
+        Stub: in file ./awscrt-stubs/aio/__init__.pyi:1
+        MypyFile:1(
+          ./awscrt-stubs/aio/__init__.pyi)
+        Runtime:
+        MISSING
+        
+        error: awscrt.aio.http failed to import. Maybe install the runtime package or alter PYTHONPATH? ModuleNotFoundError: No module named 'awscrt.aio'
+        Stub: in file ./awscrt-stubs/aio/http.pyi:1
+        MypyFile:1(
+          ./awscrt-stubs/aio/http.pyi)
+        Runtime:
+        MISSING

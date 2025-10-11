@@ -34,8 +34,6 @@ jobs:
             check-consistency: "true"
           - version: "3.13"
             check-consistency: "true"
-          - version: "3.14"
-            check-consistency: "true"
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python

@@ -57,6 +57,12 @@ class S3ChecksumConfig:
     location: S3ChecksumLocation | None = ...
     validate_response: bool = ...
 
+@dataclass
+class S3FileIoOptions:
+    should_stream: bool = ...
+    disk_throughput_gbps: float | None = ...
+    direct_io: bool = ...
+
 class S3Client(NativeResource):
     shutdown_event: Event
     def __init__(
@@ -74,6 +80,7 @@ class S3Client(NativeResource):
         enable_s3express: bool = ...,
         memory_limit: int | None = ...,
         network_interface_names: Sequence[str] | None = ...,
+        fio_options: S3FileIoOptions | None = None,
     ) -> None: ...
     def make_request(
         self,
@@ -86,6 +93,7 @@ class S3Client(NativeResource):
         checksum_config: S3ChecksumConfig | None = ...,
         part_size: int | None = ...,
         multipart_upload_threshold: int | None = ...,
+        fio_options: S3FileIoOptions | None = None,
         recv_filepath: str | None = ...,
         send_filepath: str | None = ...,
         on_headers: Callable[[int, list[tuple[str, str]]], None] | None = ...,
@@ -109,6 +117,7 @@ class S3Request(NativeResource):
         checksum_config: S3ChecksumConfig | None = ...,
         part_size: int | None = ...,
         multipart_upload_threshold: int | None = ...,
+        fio_options: S3FileIoOptions | None = None,
         recv_filepath: str | None = ...,
         send_filepath: str | None = ...,
         on_headers: Callable[[int, list[tuple[str, str]]], None] | None = ...,

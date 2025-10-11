@@ -46,10 +46,15 @@ class HttpConnectionBase(NativeResource):
     def shutdown_future(self) -> Future[None]: ...
     @property
     def version(self) -> str: ...
-    def close(self) -> Future[None]: ...
     def is_open(self) -> bool: ...
 
-class HttpClientConnection(HttpConnectionBase):
+class HttpClientConnectionBase(HttpConnectionBase):
+    @property
+    def host_name(self) -> str: ...
+    @property
+    def port(self) -> int: ...
+
+class HttpClientConnection(HttpClientConnectionBase):
     @classmethod
     def new(
         cls: type[_R],
@@ -60,18 +65,15 @@ class HttpClientConnection(HttpConnectionBase):
         tls_connection_options: TlsConnectionOptions | None = ...,
         proxy_options: HttpProxyOptions | None = ...,
     ) -> Future[_R]: ...
-    @property
-    def host_name(self) -> str: ...
-    @property
-    def port(self) -> int: ...
     def request(
         self,
         request: HttpRequest,
         on_response: Callable[[HttpClientStream, int, list[tuple[str, str]]], None] | None = ...,
         on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
     ) -> HttpClientStream: ...
+    def close(self) -> Future[None]: ...
 
-class Http2ClientConnection(HttpClientConnection):
+class Http2ClientConnection(HttpClientConnectionBase):
     @classmethod
     def new(  # type: ignore[override]
         cls,
@@ -91,6 +93,7 @@ class Http2ClientConnection(HttpClientConnection):
         on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
         manual_write: bool = ...,
     ) -> Http2ClientStream: ...
+    def close(self) -> Future[None]: ...
 
 class HttpStreamBase(NativeResource):
     def __init__(
@@ -103,7 +106,13 @@ class HttpStreamBase(NativeResource):
     @property
     def completion_future(self) -> Future[int]: ...
 
-class HttpClientStream(HttpStreamBase):
+class HttpClientStreamBase(HttpStreamBase):
+    @property
+    def version(self) -> HttpVersion: ...
+    @property
+    def response_status_code(self) -> int: ...
+
+class HttpClientStream(HttpClientStreamBase):
     def __init__(
         self,
         connection: HttpClientConnection,
@@ -111,13 +120,9 @@ class HttpClientStream(HttpStreamBase):
         on_response: Callable[[HttpClientStream, int, list[tuple[str, str]]], None] | None = ...,
         on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
     ) -> None: ...
-    @property
-    def response_status_code(self) -> int: ...
     def activate(self) -> None: ...
-    @property
-    def version(self) -> HttpVersion: ...
 
-class Http2ClientStream(HttpClientStream):
+class Http2ClientStream(HttpClientStreamBase):
     def __init__(
         self,
         connection: HttpClientConnection,
@@ -126,6 +131,7 @@ class Http2ClientStream(HttpClientStream):
         on_body: Callable[[HttpClientStream, bytes], None] | None = ...,
         manual_write: bool = ...,
     ) -> None: ...
+    def activate(self) -> None: ...
     def write_data(self, data_stream: IO[Any], end_stream: bool = ...) -> None: ...
 
 class HttpMessageBase(NativeResource):

@@ -21,7 +21,8 @@ class LogLevel(IntEnum):
     Debug = 5
     Trace = 6
 
-def init_logging(log_level: int, file_name: str) -> None: ...
+def init_logging(log_level: LogLevel, file_name: str) -> None: ...
+def set_log_level(log_level: LogLevel) -> None: ...
 
 class EventLoopGroup(NativeResource):
     shutdown_event: Event
@@ -81,6 +82,7 @@ class TlsCipherPref(IntEnum):
     DEFAULT = 0
     PQ_TLSv1_0_2021_05 = 6
     PQ_DEFAULT = 8
+    TLSv1_2_2025_07 = 9
     def is_supported(self) -> bool: ...
 
 class TlsContextOptions:

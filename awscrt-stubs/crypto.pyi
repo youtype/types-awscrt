@@ -5,7 +5,7 @@ Copyright 2024 Vlad Emelianov
 """
 
 from enum import IntEnum
-from typing import Any
+from typing import Any, NamedTuple
 
 from awscrt import NativeResource
 
@@ -85,3 +85,37 @@ class ED25519(NativeResource):
     def new_generate() -> ED25519: ...
     def export_public_key(self, export_format: ED25519ExportFormat) -> bytes: ...
     def export_private_key(self, export_format: ED25519ExportFormat) -> bytes: ...
+
+class ECType(IntEnum):
+    P_256 = 0
+    P_384 = 1
+
+class ECExportFormat(IntEnum):
+    SEC1 = 0
+    PKCS8 = 1
+    SPKI = 2
+
+class ECRawSignature(NamedTuple):
+    r: bytes
+    s: bytes
+
+class ECPublicCoords(NamedTuple):
+    x: bytes
+    y: bytes
+
+class EC(NativeResource):
+    def __init__(self, binding: Any) -> None: ...
+    @staticmethod
+    def new_generate(type: ECType) -> EC: ...
+    @staticmethod
+    def new_key_from_der_data(der_data: bytes | bytearray | memoryview) -> EC: ...
+    @staticmethod
+    def decode_der_signature(signature: bytes) -> ECRawSignature: ...
+    @staticmethod
+    def encode_raw_signature(signature: ECRawSignature) -> bytes: ...
+    def export_key(self, export_format: ECExportFormat) -> bytes: ...
+    def get_public_coords(self) -> ECPublicCoords: ...
+    def sign(self, digest: bytes | bytearray | memoryview) -> bytes: ...
+    def verify(
+        self, digest: bytes | bytearray | memoryview, signature: bytes | bytearray | memoryview
+    ) -> bool: ...

@@ -81,6 +81,7 @@ class S3Client(NativeResource):
         memory_limit: int | None = ...,
         network_interface_names: Sequence[str] | None = ...,
         fio_options: S3FileIoOptions | None = None,
+        max_active_connections_override: int | None = ...,
     ) -> None: ...
     def make_request(
         self,
@@ -94,6 +95,7 @@ class S3Client(NativeResource):
         part_size: int | None = ...,
         multipart_upload_threshold: int | None = ...,
         fio_options: S3FileIoOptions | None = None,
+        max_active_connections_override: int | None = ...,
         recv_filepath: str | None = ...,
         send_filepath: str | None = ...,
         on_headers: Callable[[int, list[tuple[str, str]]], None] | None = ...,
@@ -118,6 +120,7 @@ class S3Request(NativeResource):
         part_size: int | None = ...,
         multipart_upload_threshold: int | None = ...,
         fio_options: S3FileIoOptions | None = None,
+        max_active_connections_override: int | None = ...,
         recv_filepath: str | None = ...,
         send_filepath: str | None = ...,
         on_headers: Callable[[int, list[tuple[str, str]]], None] | None = ...,

@@ -26,6 +26,8 @@ class AIOHttpClientConnectionUnified(HttpClientConnectionBase):
         socket_options: SocketOptions | None = ...,
         tls_connection_options: TlsConnectionOptions | None = ...,
         proxy_options: HttpProxyOptions | None = ...,
+        manual_window_management: bool = ...,
+        initial_window_size: int | None = ...,
     ) -> AIOHttpClientConnectionUnified: ...
     async def close(self) -> None: ...
     def request(
@@ -45,6 +47,9 @@ class AIOHttpClientConnection(AIOHttpClientConnectionUnified):
         socket_options: SocketOptions | None = ...,
         tls_connection_options: TlsConnectionOptions | None = ...,
         proxy_options: HttpProxyOptions | None = ...,
+        manual_window_management: bool = ...,
+        initial_window_size: int | None = ...,
+        read_buffer_capacity: int | None = ...,
     ) -> AIOHttpClientConnection: ...
     def request(
         self,
@@ -55,7 +60,7 @@ class AIOHttpClientConnection(AIOHttpClientConnectionUnified):
 
 class AIOHttp2ClientConnection(AIOHttpClientConnectionUnified):
     @classmethod
-    async def new(
+    async def new(  # type: ignore[override]
         cls,
         host_name: str,
         port: int,
@@ -65,6 +70,11 @@ class AIOHttp2ClientConnection(AIOHttpClientConnectionUnified):
         proxy_options: HttpProxyOptions | None = ...,
         initial_settings: list[Http2Setting] | None = ...,
         on_remote_settings_changed: Callable[[list[Http2Setting]], None] | None = ...,
+        manual_window_management: bool = ...,
+        initial_window_size: int | None = ...,
+        conn_manual_window_management: bool = ...,
+        conn_window_size_threshold: int | None = ...,
+        stream_window_size_threshold: int | None = ...,
     ) -> AIOHttp2ClientConnection: ...
     def request(
         self,
@@ -72,6 +82,7 @@ class AIOHttp2ClientConnection(AIOHttpClientConnectionUnified):
         request_body_generator: AsyncIterator[bytes] | None = ...,
         loop: asyncio.AbstractEventLoop | None = ...,
     ) -> AIOHttp2ClientStream: ...
+    def update_window(self, increment_size: int) -> None: ...
 
 class AIOHttpClientStreamUnified(HttpClientStreamBase):
     def __init__(

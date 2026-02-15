@@ -64,6 +64,9 @@ class HttpClientConnection(HttpClientConnectionBase):
         socket_options: SocketOptions | None = ...,
         tls_connection_options: TlsConnectionOptions | None = ...,
         proxy_options: HttpProxyOptions | None = ...,
+        manual_window_management: bool = False,
+        initial_window_size: int | None = ...,
+        read_buffer_capacity: int | None = ...,
     ) -> Future[_R]: ...
     def request(
         self,
@@ -85,6 +88,11 @@ class Http2ClientConnection(HttpClientConnectionBase):
         proxy_options: HttpProxyOptions | None = ...,
         initial_settings: list[Http2Setting] | None = ...,
         on_remote_settings_changed: Callable[[list[Http2Setting]], None] | None = ...,
+        manual_window_management: bool = ...,
+        initial_window_size: int | None = ...,
+        conn_manual_window_management: bool = ...,
+        conn_window_size_threshold: int | None = ...,
+        stream_window_size_threshold: int | None = ...,
     ) -> Future[HttpClientConnection]: ...
     def request(
         self,
@@ -94,6 +102,7 @@ class Http2ClientConnection(HttpClientConnectionBase):
         manual_write: bool = ...,
     ) -> Http2ClientStream: ...
     def close(self) -> Future[None]: ...
+    def update_window(self, increment_size: int) -> None: ...
 
 class HttpStreamBase(NativeResource):
     def __init__(
@@ -111,6 +120,7 @@ class HttpClientStreamBase(HttpStreamBase):
     def version(self) -> HttpVersion: ...
     @property
     def response_status_code(self) -> int: ...
+    def update_window(self, increment_size: int) -> None: ...
 
 class HttpClientStream(HttpClientStreamBase):
     def __init__(

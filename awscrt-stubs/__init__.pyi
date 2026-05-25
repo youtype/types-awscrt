@@ -9,6 +9,7 @@ from awscrt import auth as auth
 from awscrt import crypto as crypto
 from awscrt import http as http
 from awscrt import io as io
+from awscrt import logging as logging
 from awscrt import mqtt as mqtt
 from awscrt import mqtt5 as mqtt5
 from awscrt import mqtt_request_response as mqtt_request_response
@@ -21,6 +22,7 @@ __all__ = [
     "crypto",
     "http",
     "io",
+    "logging",
     "mqtt",
     "mqtt5",
     "mqtt_request_response",

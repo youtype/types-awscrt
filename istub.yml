@@ -6,3 +6,10 @@ packages:
       pyright: false
       mypy: false
       stubtest: true
+    snapshots:
+      stubtest: |-
+        error: awscrt.logging.__all__ names exported from the stub do not correspond to the names exported at runtime. This is probably due to things being missing from the stub or an inaccurate `__all__` in the stub
+        Stub: in file ./awscrt-stubs/logging.pyi
+        Names exported in the stub but not at runtime: ['log']
+        Runtime:
+        Names exported at runtime but not in the stub: ['logf']

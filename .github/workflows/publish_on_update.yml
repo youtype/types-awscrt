@@ -58,7 +58,7 @@ jobs:
         with:
           python-version: "3.13"
       - name: Set up uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           version: "latest"
       - name: Install the project
@@ -90,7 +90,7 @@ jobs:
           git tag ${STUBS_VERSION}
           git push --all --follow-tags
       - name: Report status
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             core.notice(`Released ${process.env.STUBS} ${process.env.STUBS_VERSION}`)

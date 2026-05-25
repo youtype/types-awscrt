@@ -46,6 +46,10 @@ class S3ChecksumAlgorithm(IntEnum):
     SHA1 = 3
     SHA256 = 4
     CRC64NVME = 5
+    SHA512 = 6
+    XXHASH64 = 7
+    XXHASH3 = 8
+    XXHASH128 = 9
 
 class S3ChecksumLocation(IntEnum):
     HEADER = 1

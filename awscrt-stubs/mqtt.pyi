@@ -92,6 +92,7 @@ class Connection(NativeResource):
         on_connection_success: Callable[[Connection], OnConnectionSuccessData] | None = ...,
         on_connection_failure: Callable[[Connection], OnConnectionFailureData] | None = ...,
         on_connection_closed: Callable[[Connection], OnConnectionClosedData] | None = ...,
+        enable_metrics: bool = ...,
     ) -> None:
         self.client: Client
         self.client_id: str

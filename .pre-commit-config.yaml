@@ -21,6 +21,11 @@ repos:
         language: system
         pass_filenames: false
         entry: uv run mypy awscrt-stubs
+      # - id: ty
+      #   name: ty
+      #   language: system
+      #   pass_filenames: false
+      #   entry: uvx ty check awscrt-stubs
       - id: istub
         name: istub
         language: system

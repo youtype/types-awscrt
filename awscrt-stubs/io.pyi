@@ -93,6 +93,7 @@ class TlsContextOptions:
     private_key_buffer: bytes
     ca_dirpath: str
     ca_buffer: bytes
+    no_certificate_revocation: bool
     def __init__(self) -> None:
         self.min_tls_ver: TlsVersion
         self.cipher_pref: TlsCipherPref

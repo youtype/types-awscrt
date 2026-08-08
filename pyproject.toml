@@ -1,7 +1,7 @@
 [project]
 name = "types-awscrt"
 version = "0.34.1"
-requires-python = ">= 3.8"
+requires-python = ">= 3.10"
 description = "Type annotations and code completion for awscrt"
 authors = [{ name = "Vlad Emelianov", email = "vlad.emelianov.nz@gmail.com" }]
 license = { file = "LICENSE" }
@@ -14,8 +14,6 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -109,11 +107,11 @@ unfixable = ["B"]
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 exclude = ["test_*.py"]
 ignore = [
-    "N803",   # invalid-argument-name
-    "PYI010", # non-empty-stub-body
-    "PYI019", # custom-type-var-return-type
-    "PYI021", # docstring-in-stub
-    "PYI048", # stub-body-multiple-statements
+    "invalid-argument-name",
+    "non-empty-stub-body",
+    "custom-type-var-for-self",
+    "docstring-in-stub",
+    "stub-body-multiple-statements",
 ]
 
 [tool.ruff.format]

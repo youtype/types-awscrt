@@ -6,6 +6,7 @@ Copyright 2024 Vlad Emelianov
 
 from awscrt import aio as aio
 from awscrt import auth as auth
+from awscrt import aws_iot_metrics as aws_iot_metrics
 from awscrt import crypto as crypto
 from awscrt import http as http
 from awscrt import io as io
@@ -19,6 +20,7 @@ from awscrt import websocket as websocket
 __all__ = [
     "aio",
     "auth",
+    "aws_iot_metrics",
     "crypto",
     "http",
     "io",

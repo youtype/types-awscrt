@@ -10,6 +10,7 @@ from enum import IntEnum
 from typing import Any, Callable
 
 from awscrt import NativeResource as NativeResource
+from awscrt.aws_iot_metrics import AWSIoTMetrics as AWSIoTMetrics
 from awscrt.exceptions import AwsCrtError
 from awscrt.http import HttpProxyOptions as HttpProxyOptions
 from awscrt.http import HttpRequest as HttpRequest
@@ -92,7 +93,8 @@ class Connection(NativeResource):
         on_connection_success: Callable[[Connection], OnConnectionSuccessData] | None = ...,
         on_connection_failure: Callable[[Connection], OnConnectionFailureData] | None = ...,
         on_connection_closed: Callable[[Connection], OnConnectionClosedData] | None = ...,
-        enable_metrics: bool = ...,
+        disable_metrics: bool = ...,
+        metrics: AWSIoTMetrics | None = ...,
     ) -> None:
         self.client: Client
         self.client_id: str

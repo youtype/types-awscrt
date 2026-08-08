@@ -4,13 +4,13 @@ version = "0.36.1"
 requires-python = ">= 3.10"
 description = "Type annotations and code completion for awscrt"
 authors = [{ name = "Vlad Emelianov", email = "vlad.emelianov.nz@gmail.com" }]
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
-keywords = ["awscrt", "type-annotations", "pyright", "mypy", "boto3"]
+keywords = ["awscrt", "type-annotations", "pyright", "mypy", "boto3", "ty"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
@@ -45,12 +45,12 @@ Issues = "https://github.com/youtype/types-awscrt/issues"
 requires = ['setuptools']
 build-backend = 'setuptools.build_meta'
 
-[tool.setuptools.packages]
-find = {}
+[tool.setuptools.packages.find]
+exclude = ["build*"]
 
 [tool.pyright]
 include = ["awscrt-stubs"]
-exclude = ["**/__pycache__", "tests", "typestubs"]
+exclude = ["**/__pycache__", "tests", "typestubs", "**/node_modules", "**/.*"]
 ignore = ["test.py"]
 reportMissingImports = "error"
 reportMissingTypeStubs = false
@@ -58,10 +58,10 @@ reportMissingTypeArgument = "error"
 reportIncompatibleMethodOverride = "error"
 reportIncompatibleVariableOverride = "error"
 reportUnknownParameterType = "error"
-pythonVersion = "3.8"
+pythonVersion = "3.10"
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.10"
 warn_return_any = false
 warn_unused_ignores = false
 warn_unused_configs = true
@@ -85,7 +85,7 @@ exclude = [
 
 line-length = 100
 indent-width = 4
-target-version = "py38"
+target-version = "py310"
 
 [tool.ruff.lint]
 preview = true

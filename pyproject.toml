@@ -1,6 +1,6 @@
 [project]
 name = "types-awscrt"
-version = "0.34.1"
+version = "0.36.1"
 requires-python = ">= 3.10"
 description = "Type annotations and code completion for awscrt"
 authors = [{ name = "Vlad Emelianov", email = "vlad.emelianov.nz@gmail.com" }]

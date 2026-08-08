@@ -5,7 +5,7 @@ Copyright 2025 Vlad Emelianov
 """
 
 import asyncio
-from typing import AsyncIterator, Callable
+from collections.abc import AsyncIterator, Callable
 
 from awscrt.http import (
     Http2Setting,

@@ -4,9 +4,10 @@ Type annotations for awscrt.http module.
 Copyright 2024 Vlad Emelianov
 """
 
+from collections.abc import Callable, Iterator
 from concurrent.futures import Future
 from enum import IntEnum
-from typing import IO, Any, Callable, Iterator, TypeVar
+from typing import IO, Any, TypeVar
 
 from awscrt import NativeResource as NativeResource
 from awscrt.io import ClientBootstrap as ClientBootstrap

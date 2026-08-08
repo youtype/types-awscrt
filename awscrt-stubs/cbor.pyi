@@ -4,8 +4,9 @@ Type annotations for awscrt.cbor module.
 Copyright 2025 Vlad Emelianov
 """
 
+from collections.abc import Callable
 from enum import IntEnum
-from typing import Any, Callable
+from typing import Any
 
 from awscrt import NativeResource
 

@@ -4,9 +4,10 @@ Type annotations for awscrt.websocket module.
 Copyright 2024 Vlad Emelianov
 """
 
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Callable, Sequence
+from typing import Any
 
 from awscrt import NativeResource as NativeResource
 from awscrt.http import HttpProxyOptions as HttpProxyOptions

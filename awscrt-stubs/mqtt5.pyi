@@ -4,10 +4,11 @@ Type annotations for awscrt.mqtt5 module.
 Copyright 2024 Vlad Emelianov
 """
 
+from collections.abc import Callable, Sequence
 from concurrent.futures import Future
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Callable, Sequence
+from typing import Any
 
 from awscrt import NativeResource as NativeResource
 from awscrt import exceptions as exceptions

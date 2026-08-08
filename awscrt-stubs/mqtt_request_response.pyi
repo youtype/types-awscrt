@@ -4,11 +4,11 @@ Type annotations for awscrt.mqtt_request_response module.
 Copyright 2025 Vlad Emelianov
 """
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from concurrent.futures import Future
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Callable
+from typing import Any
 
 import typing_extensions
 from awscrt import NativeResource, mqtt, mqtt5

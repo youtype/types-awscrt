@@ -4,10 +4,11 @@ Type annotations for awscrt.mqtt module.
 Copyright 2024 Vlad Emelianov
 """
 
+from collections.abc import Callable
 from concurrent.futures import Future
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Any, Callable
+from typing import Any
 
 from awscrt import NativeResource as NativeResource
 from awscrt.aws_iot_metrics import AWSIoTMetrics as AWSIoTMetrics

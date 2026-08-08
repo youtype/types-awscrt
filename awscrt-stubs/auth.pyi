@@ -4,10 +4,11 @@ Type annotations for awscrt.auth module.
 Copyright 2024 Vlad Emelianov
 """
 
+from collections.abc import Callable, Sequence
 from concurrent.futures import Future
 from datetime import datetime
 from enum import IntEnum
-from typing import Any, Callable, Sequence, TypeVar
+from typing import Any, TypeVar
 
 from awscrt import NativeResource as NativeResource
 from awscrt.http import HttpProxyOptions

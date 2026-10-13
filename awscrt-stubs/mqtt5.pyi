@@ -18,6 +18,7 @@ from awscrt.http import HttpProxyOptions as HttpProxyOptions
 from awscrt.http import HttpRequest as HttpRequest
 from awscrt.io import ClientBootstrap as ClientBootstrap
 from awscrt.io import ClientTlsContext as ClientTlsContext
+from awscrt.io import ExponentialBackoffJitterMode as ExponentialBackoffJitterMode
 from awscrt.io import SocketOptions as SocketOptions
 from awscrt.mqtt import (
     Connection,
@@ -153,12 +154,6 @@ class ClientOperationQueueBehaviorType(IntEnum):
     FAIL_NON_QOS1_PUBLISH_ON_DISCONNECT = 1
     FAIL_QOS0_PUBLISH_ON_DISCONNECT = 2
     FAIL_ALL_ON_DISCONNECT = 3
-
-class ExponentialBackoffJitterMode(IntEnum):
-    DEFAULT = 0
-    NONE = 1
-    FULL = 2
-    DECORRELATED = 3
 
 @dataclass
 class UserProperty:

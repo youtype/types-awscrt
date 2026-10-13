@@ -157,3 +157,9 @@ class Pkcs11Lib(NativeResource):
         STRICT = 2
 
     def __init__(self, *, file: str, behavior: InitializeFinalizeBehavior | None = ...) -> None: ...
+
+class ExponentialBackoffJitterMode(IntEnum):
+    DEFAULT = 0
+    NONE = 1
+    FULL = 2
+    DECORRELATED = 3
